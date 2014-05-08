@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/user.png")'/>
+        &nbsp;
+        <span>Pengelolaan User</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnBack").clickNav({
+                url :'#springUrl("/user/list.html")'
+            });
+        });
+
+
+    </script>
+
+    <style>
+        #person_picture {
+            float: left;
+            border: 1px solid #CCC;
+            padding: 4px 4px 4px 4px;
+            background: #FFF;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="content-toolbar">
+    <button id='btnBack'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+##    #springBind("accountStatusForm")
+##<ul class='error'>
+##    #foreach($error in $status.errorMessages)
+##        <li>$error</li>
+##    #end
+##</ul>
+
+    <img src='#springUrl("/person/avatar/${person.id}.html?width=150")' id='person_picture'/>
+    <table style="font-size:13px; color: #333;">
+        <tr>
+            <td>Nama&nbsp;</td>
+            <td style="width: 10px;">:</td>
+            <td>
+                ${person.name}
+            </td>
+        </tr>
+        <tr>
+            <td>Alamat&nbsp;</td>
+            <td>:</td>
+            <td>
+                ${person.address}
+            </td>
+        </tr>
+        <tr>
+            <td>Email&nbsp;</td>
+            <td>:</td>
+            <td>
+                ${person.email}
+            </td>
+        </tr>
+        <tr>
+            <td>Instansi&nbsp;</td>
+            <td>:</td>
+            <td>
+                ${person.organization}
+            </td>
+        </tr>
+        <tr>
+            <td>Telepon&nbsp;</td>
+            <td>:</td>
+            <td>
+                ${person.phone}
+            </td>
+        </tr>
+        <tr>
+            <td colspan='3'>
+                <span class='title-small' style='display: inline;'>Account</span>
+            </td>
+        </tr>
+        <tr>
+            <td>User ID&nbsp;</td>
+            <td>:</td>
+            <td>
+                ${person.account.userID}
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>:</td>
+            <td>-- tidak ditampilkan --</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                    #if (${person.account.confirmed} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                        telah dikonfirmasi
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                        belum dikonfirmasi
+                    #end
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                    #if (${person.account.approve} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                        telah diapprove
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                        belum diapprove
+                    #end
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                    #if (${person.account.active} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                        Aktif
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                        Non-Aktif
+                    #end
+            </td>
+        </tr>
+
+    </table>
+
+
+</body>
+</html>

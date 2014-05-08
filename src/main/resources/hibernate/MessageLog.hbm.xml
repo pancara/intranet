@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.MessageLog" table="tb_message_log">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="postDate" type="java.util.Date" column="POST_DATE"/>
+
+        <property name="description" type="java.lang.String" not-null="false">
+            <column name="DESCRIPTION" sql-type="TEXT"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

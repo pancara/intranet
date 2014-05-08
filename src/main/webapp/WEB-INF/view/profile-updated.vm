@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/22x22/apps/internet-group-chat.png")'/> &nbsp;
+        <span>Profil</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnToListMessage").clickNav({
+                url :'#springUrl("/profile.html")'
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<div class='content-toolbar'>
+    <button id='btnToListMessage'>
+        <img src='#springUrl("/images/16/go-previous.png")'/> &nbsp; Kembali
+    </button>
+</div>
+<br/>
+    <img src='#springUrl("/images/22x22/status/dialog-information.png")'/><br/>
+    Profil Anda telah berhasil diupdate.<br/>
+    Terima Kasih
+</body>
+</html>

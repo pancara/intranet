@@ -1,0 +1,106 @@
+@CHARSET "ISO-8859-1";
+
+.datastore, .datastore ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: #333;
+    margin: 0px 0px 0px 8px;
+}
+
+.datastore>ul {
+    margin: 4px 0px 4px 0px;
+}
+
+.datastore  ul li {
+    margin: 3px 0px 3px 0px;
+    padding: 4px 0px 0px 22px;
+    min-height: 20px;
+    display: block;
+}
+
+.datastore .folder {
+    background-image: url(../images/datastore/folder.png);
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+
+}
+
+.datastore .file, .datastore .spreadsheet, .datastore .word, .datastore .ppt, .datastore .pdf, .datastore .picture {
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+}
+
+.datastore .file {
+    background-image: url(../images/datastore/file.png);
+}
+
+.datastore .spreadsheet {
+    background-image: url(../images/datastore/file_spreadsheet.png);
+}
+
+.datastore .word {
+    background-image: url(../images/datastore/file_doc.png);
+}
+
+.datastore  .ppt {
+    background-image: url(../images/datastore/file_ppt.png);
+}
+
+.datastore  .pdf {
+    background-image: url(../images/datastore/file_pdf.png);
+}
+
+.datastore  .picture {
+    background-image: url(../images/datastore/file_picture.png);
+}
+
+.datastore .hitarea {
+    cursor: pointer;
+    padding: 0px 0px 0px 0px;
+    background: transparent;
+}
+
+.datastore .hitarea:hover {
+    background: #ebf7fe;
+    color: #0000FF;
+}
+
+.datastore span.text {
+    font-family: "Trebuchet MS";
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .4pt;
+    margin-bottom: 4px;
+    display: block;
+    background: transparent;
+    color: #000;
+}
+
+.datastore span.detail {
+    font-size: 11px;
+    display: block;
+    margin: 3px 0px 2px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.datastore div.action {
+    margin: 4px 0px 0px 0px;
+    font-size: 11px;
+    font-weight: normal;
+    border-bottom: 1px dotted #94c4e4;
+    padding-bottom: 3px;
+}
+
+.datastore div.action a {
+    text-decoration: none;
+    color: #333;
+    padding-left: 4px;
+    padding-right: 4px;
+    background: #EEE;
+}
+
+.datastore div.action a:hover {
+    color: #666;
+    background: #CCC;
+}

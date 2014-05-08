@@ -1,0 +1,19 @@
+#parse("constant.vm")
+<html>
+<body>
+Permohonan registrasi Anda telah di setujui oleh pengelola.
+<br/>
+Selanjutnya Anda dapat login dengan account ini:
+<br/><br/>
+User ID : $!{person.account.userID}<br/>
+password : $!{person.account.password}<br/>
+
+
+<br/><br/>
+Terima kasih.
+
+<br/>
+pengelola
+
+</body>
+</html>

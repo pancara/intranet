@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/22x22/apps/internet-group-chat.png")'/> &nbsp;
+        <span>Pesan</span>
+    </title>
+    <link rel="stylesheet" href='#springUrl("/css/jquery.flexbox.css")'/>
+
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnToListMessage").clickNav({
+                url :'#springUrl("/message/list.html")'
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btnToListMessage'>
+        <img src='#springUrl("/images/16/go-previous.png")'/> &nbsp; Kembali
+    </button>
+</div>
+
+<br/>
+<span class='title-small'>
+    Pesan ini telah terkirim.
+</span>
+<br/>
+<table style="width: 95%;">
+    <tr>
+        <td style="width: 60px;">Tujuan : &nbsp;</td>
+        <td>
+            #foreach($message in $messages)
+                <table style="width: 95%;">
+                    <tr>
+                        <td style='width: 20px;'><img
+                                src='#springUrl("/person/avatar/${message.sender.id}.html?width=40")'/>
+                        </td>
+                        <td>
+                            $message.recipient.name<br/>
+                            <span class='info'>$!{message.recipient.email}</span>
+                        </td>
+                    </tr>
+                </table>
+                #if ($velocityCount == 1)
+                    #set($text = $message.content)
+                #end
+            #end
+        </td>
+    </tr>
+
+    <tr>
+        <td>Pesan : &nbsp;</td>
+        <td>
+            $text
+        </td>
+    </tr>
+</table>
+</body>
+</html>

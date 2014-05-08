@@ -1,0 +1,11 @@
+Notifikasi Revisi Dokumen:
+${version.document.name} [${version.document.id}]
+${version.document.description}
+
+Revisi: ${version.versionNumber}.0
+${version.commitDate}
+
+Direvisi oleh:
+${version.committer.name}
+${version.committer.email}
+

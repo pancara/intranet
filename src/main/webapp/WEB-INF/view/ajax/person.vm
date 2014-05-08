@@ -1,0 +1,13 @@
+<table style="width: 95%;">
+    <tr>
+        <td style='width: 10px;'>
+            <input type='checkbox' id='chk_recipient_${person.id}'/>
+            <input type='hidden' id='hid_recipient_${person.id}' name='recipients' value="${person.id}"/>
+        </td>
+        <td style='width: 20px;'><img src='#springUrl("/person/avatar/${person.id}.html?width=40")'/></td>
+        <td>
+            $person.name<br/>
+            <span class='info'>$!{person.email}</span>
+        </td>
+    </tr>
+</table>

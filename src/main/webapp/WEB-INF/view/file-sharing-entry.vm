@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/file-sharing.png")'/>
+        &nbsp;
+        <span>Sharing File</span>
+    </title>
+   <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btn_to_list").click(function() {
+                window.location = '#springUrl("/file-sharing/list.html")';
+            });
+        });
+   </script>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+    #springBind("documentForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/file-sharing/entry.html")' method="post" enctype="multipart/form-data">
+    #springFormHiddenInput("documentForm.id", "style='width: 300px;'")
+    <table>
+        <tr>
+            <td>Judul</td>
+            <td>#springFormInput("documentForm.name", "style='width: 450px;'")</td>
+        </tr>
+        <tr>
+            <td>Keterangan</td>
+            <td>#springFormTextarea("documentForm.description", "style='width:500px; height: 140px;'")</td>
+        </tr>
+        <tr>
+            <td>File</td>
+            <td><input type="file" name="document"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type='submit' name='submit' value='Simpan'/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

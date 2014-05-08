@@ -1,0 +1,13 @@
+#macro(paging $pages $current $baseUrl $pageParam $additional_param)
+<ul class='paging' style="inline">
+    #foreach($p in $pages)
+        <li>
+            #if ($p == $current)
+                <a href='#springUrl("${baseUrl}?${pageParam}=$p&$additional_param")' class='current'>$p</a>
+            #else
+                <a href='#springUrl("${baseUrl}?${pageParam}=$p&$additional_param")'>$p</a>
+            #end
+        </li>
+    #end
+</ul>
+#end

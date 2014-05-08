@@ -1,0 +1,15 @@
+#macro(paging $pages $current $baseUrl $pageParam)
+    <ul class='paging'>
+        #foreach($page in $pages)
+            <li>
+                #if ($page == $currentPage)
+                    <a href='#springUrl("${baseUrl}&${pageParam}=${page}")' class='current'>$page</a>
+                #else
+                    <a href='#springUrl("${baseUrl}&${pageParam}=${page}")'>$page</a>
+                #end
+            </li>
+        #end
+    </ul>
+#end
+
+#macro(url $path)$HOST_URL/$APP_PATH/$path#end

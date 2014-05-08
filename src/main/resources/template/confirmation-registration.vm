@@ -1,0 +1,19 @@
+#parse("constant.vm")
+<html>
+<body>
+Anda menerima email ini karena mendaftar sebagai user pada web Intranet Balai Besar Wilayah Sungai Serayu Opak.<br/>
+Anda telah terdaftar dengan account: <br/>
+<br/>
+User ID : $!{person.account.userID}<br/>
+Password : $!{person.account.password}<br/>
+<br/>
+Untuk melanjutkan proses pendaftaran silakan klik <a
+        href='#url("/registration/confirm.html?token=${person.account.registrationToken}&id=${person.account.id}")'>Konfirmasi</a>.
+<br/>Atau silakan kunjungi link ini  dengan meng <i>copy-paste</i> alamat ini ke address bar browser: <br/>
+<span style="font-size: 12px; color: red;">
+    #url("registration/confirm.html?token=${person.account.registrationToken}&id=$!{person.account.id}")
+</span>
+<br/><br/><br/>
+Terima kasih.
+</body>
+</html>

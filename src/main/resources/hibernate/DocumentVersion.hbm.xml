@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.DocumentVersion" table="tb_document_version">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <many-to-one name="document" class="com.integrasolusi.pusda.intranet.persistence.Document"
+                     column="DOCUMENT" lazy="false"/>
+
+        <property name="versionNumber" type="java.lang.Integer" column="VERSION_NUMBER" not-null="true"/>
+
+        <property name="description" type="java.lang.String" not-null="false">
+            <column name="DESCRIPTION" sql-type="TEXT"/>
+        </property>
+
+        <property name="commitDate" type="java.util.Date" column="COMMIT_DATE"/>
+
+        <many-to-one name="committer" class="com.integrasolusi.pusda.intranet.persistence.Person" column="COMMITTER"
+                     lazy="false"/>
+
+        <property name="filename" type="java.lang.String" column="FILE_NAME" not-null="false"/>
+
+        <property name="size" type="java.lang.Long" column="FILE_SIZE" not-null="false"/>
+
+    </class>
+</hibernate-mapping>

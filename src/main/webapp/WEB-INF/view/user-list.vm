@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/user.png")'/>
+        &nbsp;
+        <span>Pengelolaan User</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $("#useAdvancedFilter").click(function() {
+                var checked = $(this).attr("checked");
+                if (checked == true) $("#div_advanced_filter").css({"display": "inline"})
+                else $("#div_advanced_filter").css({"display" : "none"});
+            });
+
+            $("button.edit").click(function() {
+                var id = $(this).attr("value");
+                var url = '#springUrl("/user/edit/")' + id + ".html";
+                window.location.href = url;
+                return false;
+            });
+
+        });
+
+
+    </script>
+
+    <style>
+        #div_advanced_filter {
+            display: none;
+        }
+
+        .account_status {
+            display: block;
+            margin: 0px 0px 0px 0px;
+            color: #666;
+            font-size: 11px;
+        }
+
+        .account_status img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="content-toolbar">
+    #springBind("userManageForm")
+    <form action='#springUrl("/user/list.html")' method="post" style="text-align: right; display: inline;">
+        <span>#springFormCheckbox("userManageForm.useAdvancedFilter", "class='register'")Pencarian detail</span>
+        |
+        <span>Kata kunci:</span> #springFormInput("userManageForm.keyword", "class='register'")
+        #if ($userManageForm.useAdvancedFilter == true)
+            #set($display = "inline")
+        #else
+            #set($display = "none")
+        #end
+        <div id='div_advanced_filter' style='display : $display;'>
+            &nbsp;&nbsp;
+            Status:
+            |
+            <span>#springFormCheckbox("userManageForm.advanceFilter.confirmed", "class='register'")Dikonfirmasi</span>
+            |
+            <span>#springFormCheckbox("userManageForm.advanceFilter.approved", "class='register'")
+                Approve</span>
+            |
+            <span>#springFormCheckbox("userManageForm.advanceFilter.active", "class='register'")Aktif</span>
+        </div>
+        <input type="hidden" name="page" value="1"/>
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+</div>
+
+
+<div style="margin:4px 0px 4px 0px;">
+    <span class='result'>Tersedia $!{userCount} data.</span>
+</div>
+
+<form action='#springUrl("/user/action.html")' method='post'>
+<table class="datalist" style="width: 98%;">
+    <tr>
+        <th>No.</th>
+        <th></th>
+        <th></th>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>User ID</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    #foreach($user in $users)
+        #set($row_num = $startRow + $velocityCount)
+        <tr>
+            <td style='width: 10px;'>$row_num.</td>
+            <td style="width: 10px;">
+                <input type='checkbox' value='$user.id' name='id'/>
+            </td>
+            <td style='width: 10px;'>
+                <img src='#springUrl("/person/avatar/${user.id}.html?height=60")'/>
+            </td>
+            <td>
+                ${user.name}
+            </td>
+            <td>
+                $!{user.email}
+            </td>
+            <td>
+                $!{user.account.userID}<br/>
+                <span class="info">$roleTool.getRoleName($user.account.role)</span>
+
+            </td>
+            <td>
+                <span class="account_status">
+                    #if (${user.account.confirmed} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                        telah dikonfirmasi
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                        belum dikonfirmasi
+                    #end
+                </span>
+                <span class="account_status">
+                    #if (${user.account.approved} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                        telah diapprove
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                        belum diapprove
+                    #end
+                </span>
+                <span class="account_status">
+                    #if (${user.account.active} == true)
+                        <img src='#springUrl("/images/16/accept.png")'/> &nbsp;
+                    aktif
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/> &nbsp;
+                    non aktif
+                    #end
+                </span>
+            </td>
+            <td>
+                <button class='action edit' value="${user.id}">ubah</button>
+            </td>
+        </tr>
+    #end
+    <tr>
+        <td colspan="4">
+            <button class="action" name='action' value='approve'>Approve</button>
+            <button class='action' name='action' value='disabled'>Non Aktifkan</button>
+        </td>
+    </tr>
+</table>
+    #springFormHiddenInput("userManageForm.useAdvancedFilter", "")
+    #springFormHiddenInput("userManageForm.keyword", "")
+    #springFormHiddenInput("userManageForm.advanceFilter.confirmed", "")
+    #springFormHiddenInput("userManageForm.advanceFilter.approved", "")
+    #springFormHiddenInput("userManageForm.advanceFilter.active", "")
+    #springFormHiddenInput("userManageForm.page", "")
+</form>
+
+<br/>
+
+<div class="content-toolbar">
+    #set($url = "/user/list.html")
+    #set($keyword = $userManageForm.keyword)
+    #if ($userManageForm.useAdvancedFilter == true)
+        #set($useAdvancedFilter = "on")
+    #else
+        #set($useAdvancedFilter = "off")
+    #end
+    #if($userManageForm.advanceFilter.confirmed == true)
+        #set($confirmed = "on")
+    #else
+        #set($confirmed = "off")
+    #end
+    #if($userManageForm.advanceFilter.approved == true)
+        #set($approved = "on")
+    #else
+        #set($approved = "off")
+    #end
+    #if($userManageForm.advanceFilter.active == true)
+        #set($active = "on")
+    #else
+        #set($active = "off")
+    #end
+
+    #set($params = "keyword=$!{keyword}&useAdvancedFilter=$!{useAdvancedFilter}&advanceFilter.confirmed=$!{confirmed}
+        &advanceFilter.approved=$!{approved}&advanceFilter.active=$!{active}")
+    #paging($pages, $userManageForm.page,  $url, "page", $params)
+</div>
+
+</body>
+</html>

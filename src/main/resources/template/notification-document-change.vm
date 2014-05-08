@@ -1,0 +1,13 @@
+Pemberitahuan Pengubahan Nama Dokumen.
+
+Dokumen dengan ID #${new.id} :
+
+${oldDoc.name}
+${oldDoc.description}
+
+telah diubah menjadi :
+
+${newDoc.name}
+${newDoc.description}
+
+Terima kasih.

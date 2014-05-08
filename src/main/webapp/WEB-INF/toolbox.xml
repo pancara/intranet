@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<toolbox>
+    <tool>
+        <key>mathTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.MathTool</class>
+    </tool>
+
+    <tool>
+        <key>numberTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.NumberTool</class>
+        <parameter name="format" value="#0.000"/>
+    </tool>
+
+    <tool>
+        <key>dateTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+        <parameter name="format" value="d MMM yyyy"/>
+    </tool>
+
+    <tool>
+        <key>dateTimeTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+        <parameter name="format" value="d MMM yyyy kk.mm  'GMT'Z"/>
+    </tool>
+
+
+    <tool>
+        <key>emailTool</key>
+        <scope>application</scope>
+        <class>com.integrasolusi.velocity.EmailTool</class>
+        <parameter name="noise" value="*"/>
+    </tool>
+
+    <tool>
+        <key>textTool</key>
+        <scope>application</scope>
+        <class>com.integrasolusi.velocity.TextTool</class>
+    </tool>
+
+    <tool>
+        <key>roleTool</key>
+        <scope>application</scope>
+        <class>com.integrasolusi.velocity.RoleTool</class>
+    </tool>
+</toolbox>

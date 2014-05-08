@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/data-store.png")'/>
+        &nbsp;
+        <span>Ketersediaan Data</span>
+    </title>
+    <style>
+        a.folder {
+            display: inline-block;
+            margin: 0px 16px 16px 16px;
+            padding: 5px 5px 5px 5px;
+            width: 60px;
+            text-align: center;
+            border: 1px solid #EEE;
+            border-radius: 6px;
+        }
+
+        a.folder:hover {
+            background: #d3eefd;
+        }
+
+        a.folder > img {
+            border: none;
+        }
+
+        a.folder > span {
+            font-size: 10px;
+            text-align: center;
+            display: block;
+            color: #333;
+        }
+        a.folder:hover > span{
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 16px; min-height: 300px;">
+    #foreach($node in $nodes)
+        <a href='#springUrl("/data-store/browse/${node.id}.html")' class='folder'>
+            <img src='#springUrl("/images/32x32/places/folder-saved-search.png")'/>
+            <span>$node.name</span>
+        </a>
+    #end
+
+    <br/>
+    <a href='#springUrl("/data-store/browse/${root.id}.html")' class='folder'>
+        <img src='#springUrl("/images/32x32/places/folder-saved-search.png")'/>
+        <span>$root.name</span>
+    </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+#macro(paging $pages $current $baseUrl $pageParam)
+<ul class='paging'>
+    #foreach($page in $pages)
+        <li>
+            #if ($page == $currentPage)
+                <a href='#springUrl("${baseUrl}&${pageParam}=${page}")' class='current'>$page</a>
+            #else
+                <a href='#springUrl("${baseUrl}&${pageParam}=${page}")'>$page</a>
+            #end
+        </li>
+    #end
+</ul>
+#end
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/photo.png")'/>
+        &nbsp;
+        <span>Galleri</span>
+    </title>
+</head>
+<body>
+    #springBind("searchForm")
+<form action='#springUrl("/gallery/list.html")' method="post" style="text-align: right;">
+    Judul Gallery: #springFormInput("searchForm.keyword", "class='register'")
+    <input type='submit' name='submit' value='Cari'/>
+</form>
+
+<div>
+    #set($url = "/gallery/list.html?keyword=$!{searchForm.keyword}")
+    #paging($pageList, $currentPage,  $url, "page")
+</div>
+<table class="datalist" style="width: 720px;">
+    <tr>
+        <td>
+            <span class='result'>Ditemukan $!{galleryCount} data.</span>
+        </td>
+        <td style='width: 120px;'>
+            <a href='#springUrl("/gallery/entry.html")'>Tambah</a>
+        </td>
+    </tr>
+</table>
+<table class="datalist" style="width: 720px;">
+    #foreach($g in $galleryList)
+        #set($row_num = $velocityCount + $firstRow)
+        <tr>
+            <td style='width: 10px'>$row_num.</td>
+            <td style='text-align: center; vertical-align: top;'>
+                <a href='#springUrl("/gallery/title/${g.id}.html")' class='pirobox_$g.id'
+                   title='$g.title <br/> $g.description'>
+                    <img src="#springUrl("/gallery/title/${g.id}.html?width=80")" class='foto'/>
+                </a>
+            </td>
+            <td style='width: 480px'>
+                <span class='title'>$g.title</span>
+
+                <p class='description'>$g.description</p>
+
+                #if ($g.pictureCount > 0)
+                    <span class='info'>$g.pictureCount gambar</span>
+                #else
+                    <span class='error'>belum ada gambar yang diupload.</span>
+                #end
+            </td>
+            <td>
+                <a href='#springUrl("/gallery/edit/${g.id}.html")'>Edit</a>&nbsp;
+                <a href='#springUrl("/gallery/remove/${g.id}.html?page=$currentPage")'>Hapus</a>&nbsp;
+                <a href='#springUrl("/gallery/picture/list/${g.id}.html")'>Lihat</a>&nbsp;
+            </td>
+        </tr>
+    #end
+</table>
+
+<div>
+    #paging($pageList, $currentPage,  $url, "page")
+</div>
+</body>
+</html>

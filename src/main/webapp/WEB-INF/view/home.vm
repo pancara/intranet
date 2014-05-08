@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/logo-16x16.png")'/>
+        &nbsp;&nbsp;Intranet BBWS Serayu-Opak
+    </title>
+
+    <style>
+        #slide-box {
+            border: none;
+            margin: 8px 6px 0px 6px;
+            width: 370px;
+            height: 200px;
+            padding: 0px 0px 0px 0px;
+            display: inline-block;
+            z-index: -10;
+        }
+
+        #slide-box .slide {
+            width: 370px;
+            height: 180px;
+        }
+
+        #slide-box div span {
+            display: block;
+            height: 12px;
+            font-family: Helvetica;
+            font-size: 10px;
+            color: #666;
+
+            background: #FFF;
+            padding: 4px 4px 4px 4px;
+            text-align: left;
+        '
+        }
+
+        #slide {
+            list-style: none;
+            margin: 0px 0px 0px 0px;
+            padding: 0px 0px 0px 0px;
+            text-indent: 0px;
+
+        }
+
+        #latest_publication td {
+            font-size: 11px;
+            text-align: left;
+            color: #a3732f;
+            padding: 4px 4px 4px 4px;
+        }
+
+        #latest_publication td.date {
+            color: #880000;
+            font-size: 11px;
+        }
+
+        #latest_publication td.text {
+            border-bottom: 1px dotted #e4c8a1;
+        }
+
+        #latest_publication td.text a {
+            font-size: 13px;
+            line-height: 15px;
+            font-weight: normal;
+            margin-bottom: 4px;
+            display: block;
+            color: #003366;
+        }
+
+        #latest_publication td.text a:hover {
+            color: #660000;
+        }
+
+        #latest_publication td.text .content {
+            color: #666;
+            font-size: 11px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#slide').innerfade({ speed: 'slow', timeout: 6000, type: 'random_start', containerheight: '220px' });
+        });
+    </script>
+</head>
+<body>
+
+<div id='slide-box'>
+    <ul id="slide">
+        #foreach($slide in $slides)
+            <li>
+                <div>
+                    <img src='#springUrl("/slide/picture/${slide.id}.html")' class='slide'/>
+                    <span>${slide.description}</span>
+                </div>
+            </li>
+        #end
+    </ul>
+</div>
+
+<div style="float:right; display: inline-block; width: 360px;">
+    <img src='#springUrl("/images/intranet-bbwsso.png")' style="margin-top:15px;"/>
+
+    <ul style="list-style:square;  list-style-position: inside; font-size: 13px; color: #336699; text-indent: 0px; padding: 0px 0px 0px 0px ; font-size: 11px; letter-spacing: 1px;">
+        <li>Penyediaan data online.</li>
+        <li>Sharing dokumen digital.</li>
+    </ul>
+    <p class='description'>
+        Guna memenuhi kebutuhan dalam penyediaan sarana penyebaran data internal dalam lingkup Balai Besar Wilayah
+        Sungai Serayu Opak.
+    </p>
+
+<span style="color: #666; font-size: 11px;">
+    &copy; BBWSSO - 2010
+</span>
+
+</div>
+<div class='clear'>&nbsp;</div>
+<div style="vertical-align: top;">
+    <div style="margin-top: 6px; width: 380px; display: inline-block; float: left;">
+        <h3>
+            <img src='#springUrl("/images/sidebar/publication.png")' style="float: left; margin: -2px 0px 0px -2px;;"/>
+            &nbsp;
+            Pengumuman
+        </h3>
+
+        <ul class="article-list">
+            #foreach($publication in $publications)
+                <li>
+                    <img src='#springUrl("/publication/picture/${publication.id}.html?width=50")'
+                         style="float: left; margin-right: 6px;"/>
+
+                    <a href='#springUrl("/publication/read/${publication.id}.html")' class='title'>
+                        $publication.title
+                    </a>
+                    <br/>
+
+                    <p class="description">
+                        $textTool.substring($publication.content, 120)
+                        <span>
+                            [
+                            $dateTool.format("d", $publication.postDate)
+                            $dateTool.format("MMM", $publication.postDate)
+                            $dateTool.format("yyyy", $publication.postDate)
+                            ]
+                        </span>
+                    </p>
+
+                    <div class="clear" style="height: 8px;">&nbsp;</div>
+                </li>
+            #end
+        </ul>
+    </div>
+
+    <div style="margin-top: 6px; width: 380px; display: inline-block; float: right;">
+        <h3>
+            <img src='#springUrl("/images/sidebar/news.png")' style="float: left; margin: -2px 0px 0px -2px;;"/> &nbsp;
+            Berita
+        </h3>
+
+        <ul class="article-list">
+            #foreach($news in $newses)
+                <li>
+                    <img src='#springUrl("/news/picture/${news.id}.html?width=50")'
+                         style="float: left; margin-right: 6px;"/>
+
+                    <a href='#springUrl("/news/read/${news.id}.html")' class='title'>
+                        $news.title
+                    </a>
+                    <br/>
+
+                    <p class="description">
+                        $textTool.substring($news.content, 120)
+                        <span>
+                            [
+                            $dateTool.format("d", $news.postDate)
+                            $dateTool.format("MMM", $news.postDate)
+                            $dateTool.format("yyyy", $news.postDate)
+                            ]
+                        </span>
+                    </p>
+
+                    <div class="clear" style="height: 8px;">&nbsp;</div>
+                </li>
+            #end
+        </ul>
+    </div>
+    <div class="clear">&nbsp;</div>
+</div>
+</body>
+</html>

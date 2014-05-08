@@ -1,0 +1,33 @@
+<table>
+    <tr>
+        <td class='label'>Nama</td>
+        <td>#springFormInput("commentForm.name", "style='width: 350px;'")</td>
+    </tr>
+    <tr>
+        <td class='label'>Email</td>
+        <td>#springFormInput("commentForm.email", "style='width: 400px;'")</td>
+    </tr>
+    <tr>
+        <td class='label'>Site</td>
+        <td>#springFormInput("commentForm.site", "style='width: 400px;'")</td>
+    </tr>
+    <tr>
+        <td class='label'>Pesan</td>
+        <td>#springFormTextarea("commentForm.message", "style='width:400px; height: 80px;'")</td>
+    </tr>
+    <tr>
+        <td class='label'>Captcha</td>
+        <td>
+            <img src='comment/captcha.html'/><br/>
+            <span>Ketikkan tulisan dalam image.</span>
+            <br/>
+            #springFormInput("commentForm.captcha", "style='width: 250px;'")
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type='submit' name='submit' value='Simpan'/>
+        </td>
+    </tr>
+</table>

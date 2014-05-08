@@ -1,0 +1,81 @@
+var MIN_BANNER_HEIGHT = 40;
+var MAX_BANNER_HEIGHT = 150;
+
+var height = 0;
+var margin_top = 0;
+
+function windowLayout() {
+    var win = $(window);
+    var container = $("#container");
+
+    var banner = $("#banner");
+    var toolBarLeft = (win.width() - banner.width()) / 2;
+    banner.css({
+        "left" : toolBarLeft + "px"
+    });
+
+    var containerLeft = (win.width() - container.width()) / 2;
+    container.css({
+        "left" : containerLeft + "px"
+    })
+
+    var statusBar = $("#statusbar");
+    var statusBarLeft = (win.width() - statusBar.width()) / 2;
+    statusBar.css({
+        "left" : statusBarLeft + "px"
+    });
+}
+
+$(document).ready(function() {
+
+    // update position of bar
+    windowLayout();
+    $(window).resize(function() {
+        windowLayout();
+    });
+
+
+#if (${banner_height})
+    height = ${banner_height};
+#else
+    height = $("#banner").height();
+#end
+    cont_margin_top = height - 10;
+    $("#banner").css({"height" : height});
+    $("#container").css({"margin-top" : cont_margin_top});
+    var sidebar_top = cont_margin_top +  30;
+    $("#sidebar").css({"top" : sidebar_top});
+
+    if (height == MIN_BANNER_HEIGHT)  $("#banner-content").css({"display" : "none"});
+    else $("#banner-content").css({"display" : "block"});
+
+    $('#sidebar > ul > li > a').tipsy({gravity: 'w', fade: true});
+
+    $("#btn_toggle_banner").click(function() {
+        if (height != MIN_BANNER_HEIGHT) height = MIN_BANNER_HEIGHT;
+        else height = MAX_BANNER_HEIGHT;
+        var cont_margin_top = height - 10;
+
+        if (height == MIN_BANNER_HEIGHT) {
+            $("#banner-content").animate({"opacity" : 0}, "normal", function() {
+                $("#banner").animate({"height" : height}, "slow", "easeout");
+                $("#container").animate({"margin-top" : cont_margin_top}, "slow", "easeout", function() {
+                    var sidebar_top = cont_margin_top +  30;
+                    $("#sidebar").animate({"top" : sidebar_top}, "slow");
+                });
+
+            });
+        } else {
+            var max_height = $("#banner-content").css("max-height");
+            $("#banner").animate({"height" : height}, "slow", "easeout");
+            $("#container").animate({"margin-top" : cont_margin_top}, "slow", "easeout", function() {
+                $("#banner-content").animate({"height" : max_height, "opacity" : 1}, "slow");
+                var sidebar_top = cont_margin_top +  30;
+                $("#sidebar").animate({"top" : sidebar_top}, "slow");
+            });
+        }
+
+        var config_url = "#springUrl("/config/banner_height/")" + height + ".html";
+        $ .ajax({url : config_url});
+    });
+});

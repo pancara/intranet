@@ -1,0 +1,154 @@
+@CHARSET "ISO-8859-1";
+
+* {
+    font-family: "Trebuchet MS";
+}
+
+body {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    font-family: "Trebuchet MS", Verdana;
+    font-size: 9pt;
+    background: #AAA;
+    text-align: left;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #c4580a;
+}
+
+a:hover {
+    color: #c4110a;
+}
+
+#container {
+    width: 997px;
+    margin: 125px auto 4px auto;
+    padding: 0px 0px 0px 0px;
+    display: block;
+}
+
+#container > div.top {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background: url(../images/content-top-bg.png);
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+#container > div.middle {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    border: 0px;
+    background: url(../images/content-bg.png);
+    background-position: center center;
+    background-repeat: repeat-y;
+
+}
+
+#container > div.bottom {
+    margin: 0px 0px 0px 0px;
+    background: url(../images/content-bottom-bg.png);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+#content {
+    width: 915px;
+    margin: 4px 4px 4px 26px;
+    padding: 8px 10px 16px 16px;
+    position: relative;
+    float: left;
+    border: 2px solid #DDD;
+    border-radius: 8px;
+    text-align: justify;
+    background: #FFF;
+}
+
+#page-title {
+    margin: 0px 4px 0px 20px;
+    padding: 0px 0px 0px 0px;
+    height: 46px;
+    width: 962px;
+    background-image: url(../images/h1-no-panel-bg.png);
+    background-repeat: no-repeat;
+    background-position: left top;
+    display: block;
+}
+
+#page-title span {
+    padding: 0px 4px 4px 16px;
+    margin-top: 12px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 15px;
+    letter-spacing: 2pt;
+    color: #FFF;
+    display: inline-block;
+    font-weight: bold;
+}
+
+#page-title img {
+    float: left;
+    margin-top: -5px;
+}
+
+p {
+    margin: 0px 0px 8px 0px;
+    font-family: "Trebuchet MS";
+    font-size: 12px;
+    color: #444;
+    line-height: 16pt;
+}
+
+ul.error li {
+    margin: 0px 0px 0px 16px;
+    padding: 0px 0px 0px 0px;
+
+}
+
+#form_login {
+    display: inline-block;
+    float: left;
+    margin: 0px 16px 8px 0px;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #b3cdd7;
+    border-radius: 8px;
+    background: #d5e3e9;
+}
+
+#form_login td {
+    vertical-align: middle;
+}
+
+#form_login td input {
+    font-size: 15px;
+}
+
+#footer {
+    width: 915px;
+    height: 80px;
+    margin: 4px 4px 4px 28px;
+    padding: 16px 10px 16px 16px;
+    position: relative;
+    float: left;
+    text-align: justify;
+    border-radius: 4px;
+    background: #0A1C28;
+    font-family: "Trebuchet MS";
+    font-size: 12px;
+    font-weight: normal;
+    color: #FFF;
+    letter-spacing: 1px;
+    text-align: right;
+}
+
+#footer a, #footer a:visited {
+    color: #FFF;
+    text-decoration: none;
+}
+
+div.clear {
+    clear: both;
+    height: 0px;
+}

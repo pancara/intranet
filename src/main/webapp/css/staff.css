@@ -1,0 +1,24 @@
+div#staff h5 {
+  font-size: 14px;
+  color: #3366ff; }
+div#staff div.panel-top {
+  padding: 4px;
+  text-align: right;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 5px;
+  background: #f9f9f9; }
+div#staff div.panel-bottom {
+  padding: 4px;
+  text-align: right;
+  border-top: 1px solid #f0f0f0;
+  margin-bottom: 5px;
+  background: #f9f9f9; }
+div#staff table.data {
+  border-collapse: collapse; }
+  div#staff table.data th {
+    background: whitesmoke;
+    border: 1px solid #dddddd;
+    padding: 4px; }
+  div#staff table.data td {
+    padding: 4px 4px 4px 4px;
+    border: 1px solid #eeeeee; }

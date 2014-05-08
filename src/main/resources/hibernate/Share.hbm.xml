@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Share" table="tb_share">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <many-to-one name="document" class="com.integrasolusi.pusda.intranet.persistence.Document" column="DOCUMENT"
+                     lazy="false"/>
+
+        <many-to-one name="person" class="com.integrasolusi.pusda.intranet.persistence.Person" column="PERSON"
+                     lazy="false"/>
+
+        <property name="canModify" type="boolean" column="CAN_MODIFY"/>
+
+    </class>
+</hibernate-mapping>

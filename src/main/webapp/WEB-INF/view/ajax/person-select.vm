@@ -1,0 +1,20 @@
+#if($personList.size() > 0)
+    <table class='datalist' style="width: 95%;">
+        #foreach($person in $personList)
+            #set($row_num = $velocityCount + $firstRow)
+            <tr>
+                <td style='width: 20px;'><input type='checkbox' name='persons' value='$person.id'/></td>
+                <td style='width: 20px;'><img src='#springUrl("/person/avatar/${person.id}.html?width=30")'/></td>
+                <td>
+                    $person.name<br/>
+                    <span class='info'>$!{person.email}</span>
+                </td>
+            </tr>
+        #end
+    </table>
+#else
+    <span class='error'>
+        Tidak ditemuka data yang sesuai.
+    </span>
+#end
+

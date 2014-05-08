@@ -1,0 +1,106 @@
+#set($must_fill = "<span class='info'>*</span>")
+
+<table style="width: 90%;">
+    <tr>
+        <td colspan="2"><span class='title-small'>Biodata</span></td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Nama Lengkap $must_fill
+        </td>
+        <td>
+            #springFormInput("registrationForm.name", "style='width:350px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Alamat $must_fill
+        </td>
+        <td>
+            #springFormTextarea("registrationForm.address", "style='width:360px; height:80px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Email $must_fill
+        </td>
+        <td>
+            <input type='email' name='email' id='email' style='width: 300px;' value="$!{registrationForm.email}"/>
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Instansi
+            $must_fill
+        </td>
+        <td>
+            #springFormInput("registrationForm.organization", "style='width:350px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            No Telepon
+        </td>
+        <td>
+            <input type='tel' name='phone' id='phone' style='width: 250px;' value="$!{registrationForm.phone}"/>
+        ##            #springFormInput("registrationForm.phone", "style='width:250px;'")
+                </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Foto
+        </td>
+        <td>
+            <input type='file' name='profilePicture' style='width:250px;'/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top: 20px;">
+            <span class='title-small'>Data User</span>
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Account ID
+            $must_fill
+        </td>
+        <td>
+            #springFormInput("registrationForm.userID", "style='width:250px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Password
+            $must_fill
+        </td>
+        <td>
+            #springFormPasswordInput("registrationForm.password", "style='width:200px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+            Ketikan password lagi
+        </td>
+        <td>
+            #springFormPasswordInput("registrationForm.confirmation", "style='width:200px;'")
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>Captcha</td>
+        <td>
+            <img src='#springUrl("/registration/captcha.html")')
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            #springFormInput("registrationForm.captcha", "style='width:150px; display: block;'")
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type='submit' name='submit' value='Submit'/>
+        </td>
+    </tr>
+</table>

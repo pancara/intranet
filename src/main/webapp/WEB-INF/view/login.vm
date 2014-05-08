@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>INTRANET</title>
+    <style>
+        #slide-box {
+            border: none;
+            margin: 0px 0px 16px 0px;
+            width: 610px;
+            height: 112px;
+            padding: 0px 0px 0px 0px;
+            display: inline-block;
+            z-index: 10;
+        }
+
+        #slide-box .slide {
+            width: 610px;
+            height: 100px;
+        }
+
+        #slide-box div span {
+            display: block;
+            height: 10px;
+            font-family: Helvetica;
+            font-size: 10px;
+            color: #666;
+            background: #FFF;
+            padding: 0px 4px 0px 4px;
+            text-align: right;
+        '
+        }
+
+        #slide {
+            list-style: none;
+            margin: 0px 0px 0px 0px;
+            padding: 0px 0px 0px 0px;
+            text-indent: 0px;
+
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#slide').innerfade({ speed: 'slow', timeout: 6000, type: 'random_start', containerheight: '220px' });
+        });
+    </script>
+</head>
+<body>
+<form action='#springUrl("/login.html")' method="post" id="form_login">
+    <table>
+        <tr>
+            <td colspan='2'>
+                #springBind("login")
+                <ul class='error'>
+                    #foreach($error in $status.errorMessages)
+                        <li>$error</li>
+                    #end
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                User ID
+            </td>
+            <td>
+                #springFormInput("login.userID", "style='width: 200px;'")
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                Password
+            </td>
+            <td>
+                #springFormPasswordInput("login.password", "class='password' style='width: 200px;'")
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                Captcha
+            </td>
+            <td>
+                <img src='login/captcha.html'/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <span>Ketikkan tulisan dalam image.</span><br/>
+                #springFormInput("login.captcha", "style='width: 200px;'")
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <input type='submit' name='submit' value='Login' class='button'/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2' style="text-align: right;">
+                <a href='#springUrl("/registration/entry.html")'>
+                    <span class='title-small' style="display: inline; font-size: 12px;">
+                        Registrasi
+                    </span>
+                </a>
+                &nbsp;| &nbsp;
+                <a href='#springUrl("/recover-password.html")'>
+                    <span class='title-small' style="display: inline; font-size: 12px;">
+                        Lupa password?
+                    </span>
+                </a>
+
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div id='slide-box'>
+    <ul id="slide">
+        #foreach($slide in $slides)
+            <li>
+                <div>
+                    <img src='#springUrl("/slide/picture/${slide.id}.html")' class='slide'/>
+                    <span>${slide.description}</span>
+                </div>
+            </li>
+        #end
+    </ul>
+</div>
+
+<p style="color: #336699; font-size: 14px;">
+    <span style="display: inline-block; width: 556px;">
+        Selamat datang di Web INTRANET Balai Besar Wilayah Sungai Serayu Opak
+    </span>
+</p>
+
+<p>
+    Guna memenuhi kebutuhan data-data internal di Balai Besar Wilayah Sungai Serayu Opak, maka
+    dibangun Web Intranet sebagai media untuk memenuhi kebutuhan penyediaan data dan informasi.
+</p>
+
+<p>
+    Website Intranet Balai Besar Wilayah Sungai Serayu Opak ini secara umum juga terkoneksi ke Internet sehingga
+    memungkinkan pertukaran data dan informasi dalam lingkup yang lebih luas.
+</p>
+
+
+</body>
+</html>

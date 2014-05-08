@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <span>Sharing File</span>
+    </title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            window.setTimeout(function() {
+                window.location.href = '#springUrl("/file-sharing/manage/${version.document.id}.html")'; 
+            }, 3000);
+        });
+    </script>
+</head>
+<body>
+<div id="test"></div>
+Update Revisi berhasil.<br/>
+<a href='#springUrl("/file-sharing/manage/${version.document.id}.html")'>Kembali</a>.
+</body>
+</html>

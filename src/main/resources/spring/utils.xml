@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <bean id="captchaGenerator" class="com.integrasolusi.pusda.intranet.utils.CaptchaGenerator">
+        <property name="path" value="images"/>
+        <property name="base" value="captcha"/>
+        <property name="type" value="jpg"/>
+    </bean>
+
+    <bean id="templateEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="classpath:/template/"/>
+        <property name="configLocation" value="classpath:/velocity.properties"/>
+    </bean>
+
+    <bean id="textGenerator" class="com.integrasolusi.pusda.intranet.utils.TextGenerator">
+        <property name="velocityEngine" ref="templateEngine"/>
+        <property name="registrationConfirmationTextTemplate" value="confirmation-registration.vm"/>
+        <property name="approvalInformationTextTemplate" value="information-approval.vm"/>
+        <property name="notificationDocumentChangeTemplate" value="notification-document-change.vm"/>
+        <property name="notifificationDocumentRevisionTemplate" value="notification-document-revision.vm"/>
+        <property name="notificationPasswordRecoveryTemplate" value="notification-password-recovery.vm"/>
+        <property name="notificationSetShare" value="notification-set-share.vm"/>
+    </bean>
+
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <util:properties>
+                <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+                <prop key="mail.host">${mail.host}</prop>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.port">${mail.smtp.port}</prop>
+                <prop key="mail.smtp.socketFactory.port">${mail.smtp.socketFactory.port}</prop>
+                <prop key="mail.smtp.socketFactory.class">${mail.smtp.socketFactory.class}</prop>
+                <prop key="mail.smtp.socketFactory.fallback">${mail.smtp.socketFactory.fallback}</prop>
+                <prop key="mail.smtp.quitwait">${mail.smtp.quitwait}</prop>
+            </util:properties>
+        </property>
+    </bean>
+
+    <bean id="pagingUtils" class="com.integrasolusi.pusda.intranet.utils.PagingUtils">
+        <property name="rowPerPage" value="25"/>
+        <property name="displayedPageCount" value="10"/>
+    </bean>
+
+    <bean id="emailSender" class="com.integrasolusi.pusda.intranet.utils.EmailSender"
+          destroy-method="terminate">
+        <property name="mailSender" ref="javaMailSender"/>
+        <property name="textGenerator" ref="textGenerator"/>
+        <property name="replyAddress" value="${mail.username}"/>
+    </bean>
+
+    <bean id="roleUtils" class="com.integrasolusi.pusda.intranet.utils.RoleUtils" factory-method="getInstance">
+        <property name="roleNames">
+            <util:map>
+                <entry key="1" value="Tamu"/>
+                <entry key="2" value="Anggota"/>
+                <entry key="3" value="Administrator"/>
+            </util:map>
+        </property>
+    </bean>
+
+    <bean id="streamBufferUtils" class="com.integrasolusi.pusda.intranet.web.utils.StreamBufferUtils">
+        <property name="temporaryDir" value="${dataStore.temporaryDir}"/>
+    </bean>
+
+</beans>
+

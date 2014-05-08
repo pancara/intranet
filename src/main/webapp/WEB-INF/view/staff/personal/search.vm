@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/staff.png")'/>
+        &nbsp;
+        <a href="#springUrl('/staff.html')">Kepegawaian</a>
+        <span class="aquo">&raquo;</span>
+        <span>Pencarian Pegawai</span>
+
+        
+    </title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".new-staff").click(function () {
+                var url = $(this).attr("value");
+                location.href = url;
+            });
+
+
+            $(".edit").click(function () {
+                var value = $(this).attr("value");
+                var url = '#springUrl("/staff/personal/edit/")' + value + ".html";
+                location.href = url;
+            });
+
+            $(".remove").clickConfirm({
+                position: 'top',
+                questionText: "Hapus data pegawai?",
+                onProceed: function (trigger) {
+                    var tr = $(trigger).parentsUntil("tbody");
+                    var value = $(trigger).attr("value");
+                    var url = '#springUrl("/staff/remove/")' + value + '.html';
+
+                    jQuery.get(url, function () {
+                        $(tr).remove();
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="staff">
+    <div class="panel-top">
+        #if ($current_principal.account.role == 3)
+            <button class=' action new-staff' value='#springUrl("/staff/personal/entry.html")' class="action" style="float: left;" >
+                Tambah
+            </button>
+        #end
+        <form action='#springUrl("/staff/personal/search.html")' method="post"
+              style="text-align: right; display: inline;">
+            <span>Pencarian Pegawai:</span>
+            <input type="text" name="keyword" class='register' value="$!{searchForm.keyword}"/>
+            <input type='submit' name='submit' value='Cari'/>
+        </form>
+    </div>
+
+    <div style="margin: 4px 0px 4px 0px;">
+        <span class='result'>Tersedia $!{staffCount} data.</span>
+    </div>
+    
+
+    <table class="datalist" style="width: 99%;">
+        #foreach($staff in $staffList)
+            #set($row_num = $velocityCount + $firstRow)
+            <tr>
+                <td style='width: 10px;'>$row_num.</td>
+                <td style='text-align: center; vertical-align: top; width: 120px;'>
+                    <a href='#springUrl("/staff/foto/${staff.id}.html")' class='pirobox$staff.id' title='$staff.name'>
+                        <img src='#springUrl("/staff/foto/${staff.id}.html?width=80")' class='foto'/>
+                    </a>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td><span class='title'>$staff.name</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class='description'>$staff.nip</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class='description'>$staff.golongan</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class='description'>$staff.jabatan</span></td>
+                        </tr>
+                    </table>
+                </td>
+
+                #if ($current_principal.account.role == 3)
+                    <td style='width: 120px;'>
+                        <button class='action edit' value="${staff.id}">ubah</button>
+                        <button class='action remove' value="${staff.id}">hapus</button>
+                    </td>
+                #end
+            </tr>
+        #end
+    </table>
+    <br/>
+
+    <div class='panel-bottom'>
+        #set($base = "/staff/list.html")
+        #paging($pageList, $currentPage, $base , "page", "keyword=$!{searchForm.keyword}")
+    </div>
+</div>
+</body>
+</html>

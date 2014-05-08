@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/script.png")'/>
+        &nbsp;
+        <span>Penelusuran Pengumuman</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#back").clickNav({
+                url :'#springUrl("/publication/list.html")'
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    <button id='back'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+    #springBind("publicationForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/publication/edit/${publication.id}.html")' method="post" enctype="multipart/form-data">
+    #parse ("includes/publication-form.vm")
+</form>
+
+</body>
+</html>

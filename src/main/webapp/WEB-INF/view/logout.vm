@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>Intranet BBWS Serayu-Opak</title></head>
+<body>
+<div style="text-align: center;">
+    <br/><br/>
+    <img src='#springUrl("/images/32x32/actions/system-log-out.png")'/> <br/><br/>
+
+    <p>
+        Anda telah logout.<br/>
+        Untuk mengakses fasilitas yang ada silakan <a href='#springUrl("/login.html")'>login</a> kembali.
+    </p>
+
+    <br/><br/>
+</div>
+</body>
+</html>

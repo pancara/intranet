@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/file-sharing.png")'/>
+        &nbsp;
+        <span>Sharing File</span>
+    </title>
+    <script type="text/javascript">
+        function searchPerson() {
+            $("#search_person").ajaxSubmit({
+                success: function(data) {
+                    $("#person_list").html(data);
+                },
+                resetForm: true
+            });
+            return false;
+        }
+
+        function applyShare() {
+            $("#apply_share").ajaxSubmit({
+                success: function(data) {
+                    var share_list = $("#share_list");
+                    $(data).appendTo(share_list);
+
+                    var tr = $("#share_list").children("tr");
+                    window.console.debug(tr);
+                    if (tr != null) {
+                        $("#button_remove_share").parent().css("display", "block");
+                    } else {
+                        $("#button_remove_share").parent().css("display", "none");
+                    }
+
+                },
+                resetForm: true
+            });
+            return false;
+        }
+
+        $(document).ready(function() {
+            $("#btn_to_list").click(function() {
+                window.location = '#springUrl("/file-sharing/list.html")';
+            });
+
+            $("#version_list_title").click(function() {
+                $("#version_list").slideToggle("slow");
+            });
+
+            $("button.delete_version").clickConfirm({
+                position: 'right',
+                questionText: "Yakin untuk menghapus revisi ini?",
+                onProceed: function(trigger) {
+                    var version_id = $(trigger).attr("value");
+                    var url = '#springUrl("/file-sharing/remove/version.html")';
+                    $ .post(url, {"versionID" : version_id}, function(json) {
+                        if (json.result == true) {
+                            var tr  = $(trigger).parentsUntil("tbody");
+                            $(tr).remove();
+                        }
+                    });
+                }
+            });
+
+
+            $("#submit_new_revision").click(function() {
+                window.location = '#springUrl("/file-sharing/revision/${document.id}.html")';
+            });
+
+            $("#button_remove_share").clickConfirm({
+                position: 'right',
+                questionText: "Yakin untuk menghapus share user terpilih ?",
+                onProceed : function() {
+                    $("#form_share_list").submit();
+                }
+            });
+
+        });
+    </script>
+    
+    <style>
+        a.version {
+            font-weight: bold;
+            width: 40px;
+            font-size: 14px;
+            color: #990000;
+        }
+
+        a.version:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+<table style="width: 99%;">
+    <tr>
+        <td>
+            <span class='title'>$document.name</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class='description'>$document.description</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class='info_detail' id='detail_${document.id}' style="width: 100%;">
+                <tr>
+                    <td>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style='width: 20px;'>
+                                    <img src='#springUrl("/person/avatar/${document.owner.id}.html?width=40")'/>
+                                </td>
+                                <td>
+                                    $!{document.owner.name}<br/>
+                                    <span class='info'>$!{document.owner.email}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p class='info'>$!{document.filename}</p></td>
+                </tr>
+                <tr>
+                    <td><p class='info'>$dateTool.format("d MMM yyyy HH:m z Z", $document.submitDate)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    ## -- revision history ----
+
+                        <button class='action' id='version_list_title'>
+                            <img src='#springUrl("/images/16/triangle_down.png")' style="float: right;"/>
+                            Sejarah Revisi&nbsp;
+                        </button>
+                        #if ($shareObject.canModify == true || $current_principal.id == $document.owner.id)
+                            <button class="action" id="submit_new_revision">
+                                <img src='#springUrl("/images/16/add.png")' style="float: right;"/>
+                                Submit Revisi&nbsp;
+                            </button>
+                        #end
+                        <table style="width: 400px; display: none; margin-top: 6px;" id='version_list' class="datalist">
+                            <tr>
+                                <td colspan='4'><span class='title-small'>revisi</span></td>
+                            </tr>
+                            #foreach($version in $versions)
+                                <tr>
+                                    <td>
+                                        <a href='#springUrl("/file-sharing/download/version/${version.id}.html")'
+                                           class='version'>
+                                            ${version.versionNumber}.0
+                                        </a>
+                                    </td>
+                                    <td>
+                                         <span class='info'>
+                                             $dateTimeTool.format($version.commitDate)
+                                         </span>
+
+                                        <p class='info' style="color: #111;">
+                                            $!{version.description}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style='width: 20px;'>
+                                                    <img src='#springUrl("/person/avatar/${version.committer.id}.html?width=40")'/>
+                                                </td>
+                                                <td>
+                                                    $!{version.committer.name}<br/>
+                                                    <span class='info'>$!{version.committer.email}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    #if ($shareObject.canModify == true || $current_principal.id == $document.owner.id)
+                                    <td>
+                                        <button class='action delete_version' value="${version.id}">hapus</button>
+                                    </td>
+                                    #end
+                                </tr>
+                            #end
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+
+
+    #if($current_principal.id == $document.owner.id)
+    <span class='title-small' style='display: inline;'>Sharing</span>
+    <table>
+        <tr>
+            <td style="width: 450px;">
+                <form action='#springUrl("/file-sharing/share/delete/${document.id}.html")' method="post"
+                      id="form_share_list">
+                    <table class="datalist" style="width: 95%;" id='share_list'>
+                        #foreach($share in $shares)
+                            <tr>
+                                <td style='width: 10px;'>$velocityCount.</td>
+                                <td style="width: 1px">
+                                    <input type='checkbox' name='shares' value="${share.id}"/>
+                                </td>
+                                <td style='width: 20px;'>
+                                    <img src='#springUrl("/person/avatar/${share.person.id}.html?width=30")'/>
+                                </td>
+                                <td>
+                                    $share.person.name<br/>
+                                    <span class='info'>$!{share.person.email}</span>
+                                </td>
+                                <td style="width: 10px">
+                                    #if($share.canModify == true)
+                                        <img src='#springUrl("/images/22x22/actions/edit-find-replace.png")'/>
+                                    #else
+                                        <img src='#springUrl("/images/22x22/emblems/emblem-readonly.png")'/>
+                                    #end
+                                </td
+                            </tr>
+                        #end
+                    </table>
+                    #if($shares.size() > 0)
+                        #set($display = "block")
+                    #else
+                        #set($display = "none")
+                    #end
+
+                    <div style='margin-top: 6px; display: $display;'>
+                        <input type='submit' value="Hapus" id='button_remove_share'/>
+                    </div>
+                </form>
+                <br/>
+
+                <p class='info'>
+                    <img src='#springUrl("/images/22x22/actions/edit-find-replace.png")'/> read-edit
+                    &nbsp;&nbsp;&nbsp;
+                    <img src='#springUrl("/images/22x22/emblems/emblem-readonly.png")'/> read-only
+                </p>
+            </td>
+            <td style="width: 300px; border: 1px solid #CCC; padding: 8px 8px 8px 8px;">
+                <form action='#springUrl("/ajax/person/select/share/${document.id}.html")' method="post"
+                      id='search_person'>
+                    User:
+                    <input type='text' style='width: 150px;' name='keyword'/>
+                    <input type='submit' name='search' value='Cari' onclick="return searchPerson();"/>
+                </form>
+                <form action='#springUrl("/ajax/file-sharing/share/${document.id}.html")' method="post"
+                      id='apply_share'>
+                    <div id='person_list'
+                         style="overflow-y: scroll; max-height: 250px; margin: 8px 0px 8px 0px; border: 1px solid #EEE;">
+                    </div>
+                <span class='info_strong' style="display: block; margin-bottom: 6px;">
+                    <input type='checkbox' value="true" name="canModify"/> User dapat mengubah dokumen.
+                </span>
+                    <input type='submit' value='&lt;&lt; Share' onclick="return applyShare();"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    #end
+
+</body>
+</html>

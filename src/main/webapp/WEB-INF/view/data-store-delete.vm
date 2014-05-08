@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/data-store.png")'/>
+        &nbsp;
+        <span>Ketersediaan Data</span>
+    </title>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btn_to_list").click(function() {
+                window.location = '#springUrl("/data-store/browse/${root.id}.html#${dataStore.id}")';
+            });
+        });
+    </script>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+<span class='title'>
+    ${dataStore.name}
+</span>
+
+<div class='clear'>&nbsp;</div>
+<table class='info_detail'>
+    <tr>
+        <td>
+            <p class='info'>${dataStore.description}</p>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<span class='title-small'>Hapus data ini ?</span>
+
+
+#springBind("dataStoreDeleteForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/data-store/${root.id}/delete/${dataStore.id}.html")' method="post">
+    <table>
+        <tr>
+            <td style="vertical-align: middle;">
+                #springFormCheckbox("dataStoreDeleteForm.deleteTree", "")
+                <span class='info_strong'>Otomatis hapus folder/file dibawahnya.</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type='submit' name='submit' value='Hapus'/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

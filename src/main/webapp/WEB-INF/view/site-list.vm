@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/world_link.png")'/>
+        &nbsp;
+        <span>Pengelolaan Link</span>
+    </title>
+    <script type="text/javascript">
+        function editSite(url) {
+            location.href = '#springUrl("/site/edit/")' + url + ".html";
+        }
+
+        $(document).ready(function() {
+            $("#chkCheckAll").click(function() {
+                var v = $(this).attr("checked");
+                $("td.selection input").attr("checked", (v == null ? false : v));
+            });
+
+            $("#btnNewSite").click(function() {
+                window.location = '#springUrl("/site/new.html")';
+            });
+
+
+            $("#btnRemoveSite").clickConfirm({
+                position : "right",
+                onProceed : function() {
+                    $("#form_remove_site").submit();
+                }
+            });
+
+            $("img.up").click(function() {
+                var tr = $(this).parentsUntil("table").filter("tr");
+                var prev = $(tr).prev();
+                if ($(prev).attr("id") != "row-header") {
+                    var site_id = $(this).attr("name");
+                    $ .post('#springUrl("/json/site/moveup.html")',
+                        {
+                            id : site_id
+                        }, function(data) {
+                            if (data.result == true)
+                                $(prev).before(tr);
+                    });
+                }
+            });
+
+
+            $("img.down").click(function() {
+                var tr = $(this).parentsUntil("table").filter("tr");
+                var next = $(tr).next();
+                if (next != null) {
+                    var site_id = $(this).attr("name");
+                    $ .post('#springUrl("/json/site/movedown.html")',
+                        {
+                            id : site_id
+                        }, function(data) {
+                            if (data.result == true)
+                                $(next).after(tr);
+                    });
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+        .up, .down {
+            border: 1px solid #EEE;
+        }
+
+        .up:hover, .down:hover {
+            background: #CCEEFF;
+        }
+    </style>
+</head>
+<body>
+<div class='content-toolbar' style="margin-bottom: 4px;">
+    <input type='checkbox' id='chkCheckAll'/>
+    |
+    <span>${sites.size()} data.</span>
+    |
+    <button id='btnNewSite'>Baru</button>
+</div>
+
+<form action='#springUrl("/site/remove.html")' method='post' id='form_remove_site'>
+    <table class="datalist" style="width: 100%;">
+        <tr id='row-header'>
+            <th></th>
+            <th>Gambar</th>
+            <th>Nama</th>
+            <th>URL</th>
+            <th style="width: 10px;"></th>
+            <th style="width: 50px;"></th>
+
+        </tr>
+        #foreach($site in $sites)
+            <tr>
+                <td style="width: 10px;" class="selection">
+                    <input type='checkbox' name='siteID' value="${site.id}"/>
+                </td>
+
+                <td style='text-align: center; vertical-align: top; width: 120px;'>
+                    <img src='#springUrl("/site/picture/${site.id}.html")'/>
+                </td>
+                <td>
+                    $site.name
+                </td>
+                <td>
+                    <a href='$site.url'>
+                        $site.url
+                    </a>
+                </td>
+                <td>
+                    <button class='action edit' onclick='editSite(${site.id}); return false;'>
+                        edit
+                    </button>
+                </td>
+                <td>
+                    <img src='#springUrl("/images/16/arrow_up.png")' class="up" name="${site.id}"/>
+                    <img src='#springUrl("/images/16/arrow_down.png")' class="down" name="${site.id}"/>
+                </td>
+            </tr>
+        #end
+    </table>
+
+    <br/>
+
+    <div class='content-toolbar'>
+        <input type='submit' id='btnRemoveSite' value="hapus"/>
+    </div>
+</form>
+</body>
+</html>

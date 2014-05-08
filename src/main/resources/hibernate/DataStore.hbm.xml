@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.DataStore" table="tb_data_store">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="name" type="java.lang.String" column="NAME"/>
+
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" sql-type="TEXT"/>
+        </property>
+
+        <property name="filename" type="java.lang.String" column="FILENAME"/>
+
+        <property name="submitDate" type="java.util.Date" column="SUBMIT_DATE"/>
+
+        <property name="storageType" type="java.lang.Integer" column="STORAGE_TYPE"/>
+
+        <many-to-one name="parent" class="com.integrasolusi.pusda.intranet.persistence.DataStore" column="PARENT"
+                     not-null="false"/>
+
+        <list name="children" lazy="true">
+            <key column="PARENT"/>
+            <list-index column="UID"/>
+            <one-to-many class="com.integrasolusi.pusda.intranet.persistence.DataStore"/>
+        </list>
+
+        <property name="childrenCount" type='int' lazy="false"
+                  formula="(SELECT COUNT(d.uid) FROM tb_data_store d WHERE d.parent = UID)"/>
+
+        <property name="index" type="java.lang.Integer" column="IDX"/>
+
+        <property name="size" type="java.lang.Long" column="FILE_SIZE"/>
+
+
+    </class>
+</hibernate-mapping>

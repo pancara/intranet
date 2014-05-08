@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/script.png")'/>
+        &nbsp;
+        <span>Penelusuran Pengumuman</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("button.new").clickNav({
+                url :'#springUrl("/publication/entry.html")'
+            });
+
+            $("button.edit").click(function() {
+                var id = $(this).attr("value");
+                var url = '#springUrl("/publication/edit/")' + id + ".html";
+                window.location.href = url;
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    #springBind("publicationSearchForm")
+    <form action='#springUrl("/publication/browse.html")' method="post" style="text-align: right; display: inline;">
+        <span>Kata kunci:</span> #springFormInput("publicationSearchForm.keyword", "class='register'")
+        <input type="hidden" name="page" value="1"/>
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+</div>
+
+
+<div style="margin:4px 0px 4px 0px;">
+    <span class='result'>Tersedia $!{publicationCount} data.</span>
+</div>
+
+<div style="margin: 4px 4px 4px 8px;">
+    #set($startIndex = $startRow + 1)
+    <ol class="article-list" style="list-style:decimal;" start="$startIndex">
+        #foreach($publication in $publications)
+            <li>
+
+                <img src='#springUrl("/publication/picture/${publication.id}.html?width=80")'
+                     style="float: left; margin-right: 6px;"/>
+
+                <a href='#springUrl("/publication/read/${publication.id}.html")' class='title'>
+                    $publication.title
+                </a>
+                <br/>
+
+                <p class="description">
+                    $textTool.substring($publication.content, 120)
+                    <span>
+                                          [
+                        $dateTool.format("d", $publication.postDate)
+                        $dateTool.format("MMM", $publication.postDate)
+                        $dateTool.format("yyyy", $publication.postDate)
+                        ]
+                    </span>
+                </p>
+                <div class='clear'>&nbsp;</div>
+            </li>
+        #end
+    </ol>
+</div>
+
+    #springFormHiddenInput("publicationSearchForm.keyword", "")
+    #springFormHiddenInput("publicationSearchForm.page", "")
+
+<br/>
+
+<div class="content-toolbar">
+    #set($url = "/publication/browse.html")
+    #set($param = "keyword=$publicationSearchForm.keyword")
+    #paging($pages, $publicationSearchForm.page,  $url, "page", "$param")
+</div>
+
+</body>
+</html>

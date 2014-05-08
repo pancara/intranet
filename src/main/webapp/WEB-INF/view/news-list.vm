@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/news.png")'/>
+        &nbsp;
+        <span>Berita</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("button.new").clickNav({
+                url :'#springUrl("/news/entry.html")'
+            });
+
+            $("button.edit").click(function() {
+                var id = $(this).attr("value");
+                var url = '#springUrl("/news/edit/")' + id + ".html";
+                window.location.href = url;
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    <button class='new'>Baru</button> |
+    #springBind("newsSearchForm")
+    <form action='#springUrl("/news/list.html")' method="post" style="text-align: right; display: inline;">
+        <span>Kata kunci:</span> #springFormInput("newsSearchForm.keyword", "class='register'")
+        <input type="hidden" name="page" value="1"/>
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+</div>
+
+
+<div style="margin:4px 0px 4px 0px;">
+    <span class='result'>Tersedia $!{newsCount} data.</span>
+</div>
+
+<form action='#springUrl("/news/action.html")' method='post'>
+    <table class="datalist" style="width: 98%;">
+        <tr>
+            <th>No.</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Judul</th>
+            <th>Tgl Jam</th>
+            <th></th>
+        </tr>
+        #foreach($news in $newses)
+            #set($row_num = $startRow + $velocityCount)
+            <tr>
+                <td style='width: 10px;'>$row_num.</td>
+                <td style="width: 10px;">
+                    <input type='checkbox' value='$news.id' name='id'/>
+                </td>
+                <td>
+                    #if($news.published == true)
+                        <img src='#springUrl("/images/16/accept.png")'/>
+                    #else
+                        <img src='#springUrl("/images/16/stop.png")'/>
+                    #end
+                </td>
+                <td>
+                   <img src='#springUrl("/news/picture/${news.id}.html")?width=60'/>
+
+                </td>
+                <td>
+                    $!{news.title}
+                </td>
+                <td>
+                    $dateTimeTool.format($news.postDate)
+                </td>
+                <td>
+                    <button class='action edit' value="${news.id}">ubah</button>
+                </td>
+            </tr>
+        #end
+        <tr>
+            <td colspan="4">
+                <button class="action" name='action' value='publish'>Publish</button>
+                <button class='action' name='action' value='remove'>Hapus</button>
+            </td>
+        </tr>
+    </table>
+
+    #springFormHiddenInput("newsSearchForm.keyword", "")
+    #springFormHiddenInput("newsSearchForm.page", "")
+</form>
+
+<br/>
+
+<div class="content-toolbar">
+    #set($url = "/news/list.html")
+    #set($param = "keyword=$newsSearchForm.keyword")
+    #paging($pages, $newsSearchForm.page,  $url, "page", "$param")
+</div>
+
+</body>
+</html>

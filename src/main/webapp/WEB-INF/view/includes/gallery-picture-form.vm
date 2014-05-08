@@ -1,0 +1,34 @@
+#if ($status.getErrors().getErrorCount() > 0)
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+#end
+
+<table cellspacing="4">
+    <tr>
+        <td rowspan='4' style='width: 110px;'>
+            <a href='#springUrl("/gallery/picture/${galleryPictureForm.id}.html")' class='pirobox'
+               title="${galleryForm.title} <br/>${galleryForm.description}"/>
+            <img src='#springUrl("/gallery/picture/${galleryPictureForm.id}.html?width=80")' class='foto'/>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>Judul</td>
+        <td>#springFormInput("galleryPictureForm.title", "style='width: 500px;'")</td>
+    </tr>
+    <tr>
+        <td>Keterangan</td>
+        <td>#springFormTextarea("galleryPictureForm.description", "style='width:500px; height: 80px;'")</td>
+    </tr>
+    <tr>
+        <td>Gambar</td>
+        <td><input type="file" name="picture"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type='submit' name='upload' value='Kirim'/></td>
+    </tr>
+</table>

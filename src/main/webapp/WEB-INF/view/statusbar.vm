@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:decorator="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Status Bar
+    </title>
+</head>
+<body>
+<style>
+    a.avatar {
+        float: right;
+        display: inline;
+        border: 1px solid #CCC;
+        padding: 2px 2px 4px 2px;
+        background: #FFF;
+        margin-top: -5px;
+    }
+    a.avatar img{
+        border: none;
+    }
+</style>
+<div style="margin: 0px 16px 0px 4px; text-align: right;">
+    <a href='#springUrl("/logout.html")' style="float: left;" id="logout">
+        <img src='#springUrl("/images/16/door_out.png")'/>
+        &nbsp;
+        <span>Logout</span>
+    </a>
+
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/comment/browse.html")' title="Pengelolaan Buku Tamu">
+        <img src='#springUrl("/images/16/comment.png")'/>
+        &nbsp;
+        <span>
+            Buku Tamu
+        </span>
+    </a>
+#end
+    
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/slide/list/1.html")' title="Pengelolaan Slide 1">
+        <img src='#springUrl("/images/16/script.png")'/>
+        &nbsp;
+        <span>
+            slide 1
+        </span>
+    </a>
+#end
+
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/slide/list/2.html")' title="Pengelolaan Slide 2">
+        <img src='#springUrl("/images/16/script.png")'/>
+        &nbsp;
+        <span>
+            slide 2
+        </span>
+    </a>
+#end
+
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/user/list.html")' title="Pengelolaan User">
+        <img src='#springUrl("/images/16/group_gear.png")'/>
+        &nbsp;
+        <span>
+            User
+        </span>
+    </a>
+#end
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/site/list.html")' title="Pengelolaan Link">
+        <img src='#springUrl("/images/16/world_link.png")'/>
+        &nbsp;
+        <span>
+            Link
+        </span>
+    </a>
+#end
+
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/publication/list.html")' title="Pengelolaan Pengumuman">
+        <img src='#springUrl("/images/16/script.png")'/>
+        &nbsp;
+        <span>
+            Pengumuman
+        </span>
+    </a>
+#end
+
+#if ($current_principal.account.role == 3)
+    <a href='#springUrl("/news/list.html")' title="Pengelolaan Berita">
+        <img src='#springUrl("/images/16/newspaper.png")'/>
+        &nbsp;
+        <span>
+            Berita
+        </span>
+    </a>
+#end
+
+    <a href='#springUrl("/message/list.html")'>
+        <img src='#springUrl("/images/16/comments.png")'/>
+        &nbsp;
+        <span>
+            Pesan
+        </span>
+        <span style="color: #FFF;">
+        #if ($countNewMessage > 0)
+            ($countNewMessage baru)
+        #end
+        </span>
+    </a>
+
+
+    <span>
+        <a href='#springUrl("/profile.html")'  class="avatar">
+            <img src='#springUrl("/person/avatar/${current_principal.id}.html")?height=30'>
+        </a>
+    </span>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#logout").clickConfirm({
+            position: 'top',
+            questionText: "Lakukan logout?"
+        });
+    });
+</script>
+</body>
+</html>

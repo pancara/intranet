@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/photo.png")'/>
+        &nbsp;
+        <span>Galleri</span>
+    </title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td rowspan='4' style='width: 190px; vertical-align: middle;'>
+                <a href='#springUrl("/gallery/title/$!{gallery.id}.html")' class='pirobox_gallery'
+                   title="$gallery.title<br/> $gallery.description"/>
+                <img src='#springUrl("/gallery/title/$!{gallery.id}.html?width=180")' class='foto'/>
+                </a>
+            </td>
+            <td style='padding: 16px 4px 4px 16px;'>
+                <span class='title'>$gallery.title</span>
+
+                <p class='description'>$gallery.description</p>
+            </td>
+        </tr>
+    </table>
+
+    <div id='cont_album'>
+        <ul>
+            <li><a href='#picture_list'><span>List Gambar</span></a></li>
+            <li><a href='#form_upload_picture'><span>Submit Gambar</span></a></li>
+        </ul>
+
+        <div id="picture_list">
+            #if($pictureList.size() > 0)
+                #set($index = 0)
+                #set($colCount = 7)
+                <table class='album' cellspacing="4">
+                    #foreach($pic in $pictureList)
+                        #set($startRow = $index % $colCount)
+                        #if ($startRow == 0)
+                        <tr>
+                        #end
+                        <td style='text-align: center;'>
+                            <div>
+                                <a href='#springUrl("/gallery/picture/${pic.id}.html")' class='pirobox_gallery'
+                                   title='$pic.title<br/>$pic.description'>
+                                    <img src='#springUrl("/gallery/picture/${pic.id}.html?width=80")'/>
+                                </a>
+
+                                <div class='toolbox'>
+                                    <a href='#springUrl("/gallery/picture/edit/${pic.id}.html")'>
+                                        <img src='#springUrl("/images/16/image_edit.png")'
+                                             title="Ubah" class='btn_edit'/>
+                                    </a>
+                                    <a href='#springUrl("/gallery/picture/remove/${pic.id}.html")'>
+                                        <img src='#springUrl("/images/16/image_delete.png")'
+                                             title="Hapus" class='btn_remove'/>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        #set($endRow = ($index  + 1)% $colCount)
+                        #if ($endRow == 0)
+                        </tr>
+                        #end
+                        #set($index = $index + 1)
+                    #end
+                </table>
+            #else
+                <span class='error'>belum ada gambar yang diupload.</span>
+            #end
+        </div>
+        #springBind("galleryPictureForm")
+        <div id="form_upload_picture">
+            <form action='#springUrl("/ajax/gallery/picture/upload/${gallery.id}.html")' method="post"
+                  enctype="multipart/form-data">
+
+                <table cellspacing="4">
+                    <tr>
+                        <td colspan='2'>
+                            #if ($status.getErrors().getErrorCount() > 0)
+                                <ul class='error'>
+                                    #foreach($error in $status.errorMessages)
+                                        <li>$error</li>
+                                    #end
+                                </ul>
+                            #end
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Judul</td>
+                        <td>#springFormInput("galleryPictureForm.title", "style='width: 500px;'")</td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan</td>
+                        <td>#springFormTextarea("galleryPictureForm.description", "style='width:500px; height: 80px;'")</td>
+                    </tr>
+                    <tr>
+                        <td>Gambar</td>
+                        <td><input type="file" name="picture"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type='submit' name='upload' value='Kirim'/></td>
+                    </tr>
+
+                </table>
+            </form>
+            <div id="new_picture">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+        #parse("includes/gallery-picture-list.js")
+</script>
+</body>
+</html>

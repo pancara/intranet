@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:datasource.properties</value>
+                <value>classpath:datastore.properties</value>
+                <value>classpath:mail.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value=""/>
+        <property name="minPoolSize" value="5"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="acquireIncrement" value="4"/>
+    </bean>
+    
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--<property name="url" value="${jdbc.url}"/>-->
+    <!--<property name="username" value="${jdbc.username}"/>-->
+    <!--<property name="password" value="${jdbc.password}"/>-->
+    <!--<property name="driverClassName" value="${jdbc.driverClassName}"/>-->
+    <!--</bean>-->
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingDirectoryLocations" value="classpath:hibernate"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.pool_size">5</prop>
+
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.timeout">300</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.c3p0.idle_test_period">3000</prop>
+
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="repository" class="org.apache.jackrabbit.core.RepositoryImpl">
+        <constructor-arg index="0" ref="config"/>
+    </bean>
+
+    <bean id="config" class="org.apache.jackrabbit.core.config.RepositoryConfig" factory-method="create">
+        <constructor-arg index="0" value="${repository.config}"/>
+        <constructor-arg index="1" value="${repository.path}"/>
+    </bean>
+
+    <bean id="credentials" class="javax.jcr.SimpleCredentials">
+        <constructor-arg index="0" value=""/>
+        <constructor-arg index="1" ref="password"/>
+    </bean>
+
+    <bean id="password" factory-bean="stringPassword" factory-method="toCharArray"/>
+
+    <bean id="stringPassword" class="java.lang.String">
+        <constructor-arg index="0" value=""/>
+    </bean>
+
+    <bean id="jcrSessionFactory" class="com.integrasolusi.jcr.JcrSessionFactory" destroy-method="shutdown">
+        <property name="credentials" ref="credentials"/>
+        <property name="repository" ref="repository"/>
+    </bean>
+</beans>
+

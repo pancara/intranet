@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        
+        <img src='#springUrl("/images/sidebar/staff.png")'/>
+        &nbsp;
+        <a href="#springUrl('/staff.html')">Kepegawaian</a>
+        <span class="aquo">&raquo;</span>
+        <a href="#springUrl('/staff/personal/search.html')">Pencarian Pegawai</a>
+
+        <span class="aquo">&raquo;</span>
+        <span>Tambah Pegawai</span>
+    </title>
+</head>
+<body>
+    #springBind("staffForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/staff/entry.html")' method="post" enctype="multipart/form-data">
+    #parse ("includes/staff-form.vm")
+</form>
+
+</body>
+</html>

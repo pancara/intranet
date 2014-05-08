@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Slide" table="tb_slide">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" sql-type="TEXT"/>
+        </property>
+
+        <property name="filename" type="java.lang.String" column="FILE_NAME"/>
+
+        <property name="type" type="java.lang.Integer" column="SLIDE_TYPE"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="accountService" class="com.integrasolusi.pusda.intranet.service.AccountServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="personService" class="com.integrasolusi.pusda.intranet.service.PersonServiceImpl">
+        <property name="personDao" ref="personDao"/>
+        <property name="documentDao" ref="documentDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="staffService" class="com.integrasolusi.pusda.intranet.service.StaffServiceImpl">
+        <property name="staffDao" ref="staffDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="galleryService" class="com.integrasolusi.pusda.intranet.service.GalleryServiceImpl">
+        <property name="galleryDao" ref="galleryDao"/>
+        <property name="galleryPictureDao" ref="galleryPictureDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="galleryPictureService" class="com.integrasolusi.pusda.intranet.service.GalleryPictureServiceImpl">
+        <property name="galleryPictureDao" ref="galleryPictureDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="documentService" class="com.integrasolusi.pusda.intranet.service.DocumentServiceImpl">
+        <property name="documentDao" ref="documentDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+        <property name="documentVersionDao" ref="documentVersionDao"/>
+        <property name="shareDao" ref="shareDao"/>
+    </bean>
+
+    <bean id="shareService" class="com.integrasolusi.pusda.intranet.service.ShareServiceImpl">
+        <property name="shareDao" ref="shareDao"/>
+    </bean>
+
+    <bean id="messageService" class="com.integrasolusi.pusda.intranet.service.MessageServiceImpl">
+        <property name="messageDao" ref="messageDao"/>
+        <property name="personDao" ref="personDao"/>
+        <property name="messageLogDao" ref="messageLogDao"/>
+        <property name="textGenerator" ref="textGenerator"/>
+        <property name="shareDao" ref="shareDao"/>
+        <property name="documentDao" ref="documentDao"/>
+    </bean>
+
+    <bean id="messageLogService" class="com.integrasolusi.pusda.intranet.service.MessageLogServiceImpl">
+        <property name="messageLogDao" ref="messageLogDao"/>
+    </bean>
+
+    <bean id="registrationService" class="com.integrasolusi.pusda.intranet.service.RegistrationServiceImpl">
+        <property name="personDao" ref="personDao"/>
+        <property name="userDao" ref="userDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+        <property name="registrationMailFrom" value="admin@bbws-so.net"/>
+    </bean>
+
+    <bean id="commentService" class="com.integrasolusi.pusda.intranet.service.CommentServiceImpl">
+        <property name="commentDao" ref="commentDao"/>
+    </bean>
+
+    <bean id="dataStoreService" class="com.integrasolusi.pusda.intranet.service.DataStoreServiceImpl">
+        <property name="dataStoreDao" ref="dataStoreDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+        <property name="rootID" value="${dataStore.rootID}"/>
+        <property name="streamBufferUtils" ref="streamBufferUtils"/>
+    </bean>
+
+    <bean id="siteService" class="com.integrasolusi.pusda.intranet.service.SiteServiceImpl">
+        <property name="siteDao" ref="siteDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="documentVersionService" class="com.integrasolusi.pusda.intranet.service.DocumentVersionServiceImpl">
+        <property name="documentVersionDao" ref="documentVersionDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="publicationService" class="com.integrasolusi.pusda.intranet.service.PublicationServiceImpl">
+        <property name="publicationDao" ref="publicationDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="newsService" class="com.integrasolusi.pusda.intranet.service.NewsServiceImpl">
+        <property name="newsDao" ref="newsDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+
+    <bean id="slideService" class="com.integrasolusi.pusda.intranet.service.SlideServiceImpl">
+        <property name="slideDao" ref="slideDao"/>
+        <property name="contentRepositoryDao" ref="contentRepositoryDao"/>
+    </bean>
+</beans>
+
+

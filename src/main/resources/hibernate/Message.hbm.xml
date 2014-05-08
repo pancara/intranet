@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Message" table="tb_message">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="content" type="java.lang.String">
+            <column name="MESSAGE_TEXT" sql-type="TEXT"/>
+        </property>
+
+        <many-to-one name="sender" class="com.integrasolusi.pusda.intranet.persistence.Person" column="SENDER"
+                     lazy="false"/>
+
+        <many-to-one name="recipient" class="com.integrasolusi.pusda.intranet.persistence.Person" column="RECIPIENT"
+                     lazy="false"/>
+
+        <property name="postDate" type="java.util.Date" column="POST_DATE"/>
+
+        <property name="type" type="integer" column="MESSAGE_TYPE"/>
+
+        <property name="hasRead" type="boolean" column="HAS_READ"/>
+
+        <many-to-one name="log" class="com.integrasolusi.pusda.intranet.persistence.MessageLog"
+                     column="LOG" lazy="false"/>
+    </class>
+</hibernate-mapping>

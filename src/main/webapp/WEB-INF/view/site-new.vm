@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/world_link.png")'/>
+        &nbsp;
+        <span>Pengelolaan Link</span>
+    </title>
+
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".back").clickNav({
+                url :'#springUrl("/site/list.html")'
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class='content-toolbar'>
+    <button class='back'>
+        Kembali
+    </button>
+</div>
+
+    #springBind("siteForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/site/new.html")' method='post'  enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>Nama&nbsp;</td>
+            <td>
+                #springFormInput("siteForm.name", "style='width: 300px;'")
+            </td>
+        </tr>
+        <tr>
+            <td>URL&nbsp;</td>
+            <td>
+                #springFormInput("siteForm.url", "style='width: 300px;'")
+            </td>
+        </tr>
+        <tr>
+            <td>Aktif&nbsp;</td>
+            <td>
+                #springFormCheckbox("siteForm.active", "")
+            </td>
+        </tr>
+        <tr>
+            <td>Gambar&nbsp;</td>
+            <td>
+                <input type="file" name='picture' style="width: 200px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type='submit' name='submit' value='Kirim'/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

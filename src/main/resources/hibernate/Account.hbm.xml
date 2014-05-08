@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Account" table="tb_account">
+        <id name="id" column="UID" type="java.lang.Long"
+            unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="userID" type="java.lang.String" column="USER_ID"/>
+
+        <property name="password" type="java.lang.String" column="PASSWORD"/>
+
+        <property name="registrationToken" type="java.lang.String" column="REGISTRATION_TOKEN"/>
+
+        <property name="confirmed" type="boolean" column="CONFIRMED"/>
+
+        <property name="approved" type="boolean" column="APPROVED"/>
+
+        <property name="active" type="boolean" column="ACTIVE"/>
+
+        <property name="role" type="java.lang.Integer" column="ACCOUNT_ROLE"/>
+
+    </class>
+</hibernate-mapping>

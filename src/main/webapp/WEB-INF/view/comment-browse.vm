@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/16/comment.png")'/>
+        &nbsp;
+        <span>Pengelolaan Buku Tamu</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#checkAll").click(function() {
+                var checked = $(this).attr("checked");
+                $("#comment_form input").attr("checked", checked);
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    #springBind("commentSearchForm")
+    <form action='#springUrl("/comment/browse.html")' method="post" style="text-align: right; display: inline;">
+        <span>Kata kunci:</span> #springFormInput("commentSearchForm.keyword", "class='register'")
+        <input type="hidden" name="page" value="1"/>
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+</div>
+
+<div style="margin:4px 0px 4px 0px;">
+    <span class='result'>Tersedia $!{commentCount} data.</span>
+</div>
+
+<form action='#springUrl("/comment/delete.html")' method="post" id="comment_form">
+<table>
+#set($startIndex = $startRow + 1)
+    <tr>
+        <th>
+            <input type='checkbox' id='checkAll'/>
+        </th>
+        <th>No.</th>
+        <th>Pengirim</th>
+        <th>Tgl Jam</th>
+        <th>Pesan</th>
+    </tr>
+    #foreach($comment in $comments)
+        #set($index = $startRow + $velocityCount)
+        <tr>
+            <td>
+                <input type='checkbox' name="id" value="${comment.id}"/>
+            </td>
+            <td>
+                ${index}.
+            </td>
+            <td>
+                ${comment.name}<br/>
+                ${comment.email}<br/>
+                ${comment.site}<br/>
+            </td>
+            <td style="width: 100px;">
+                   $dateTool.format($comment.postDate)<br/>
+                   $dateTimeTool.format("kk.mm  'GMT'Z", $comment.postDate)
+           </td>
+            <td>
+                <p class="description">
+                    ${comment.message}
+                </p>
+            </td>
+
+        </tr>
+    #end
+    <tr>
+        <td colspan="4">
+            <input type="submit" name="submit" id="btnRemoveComments" value="Hapus"/>
+        </td>
+    </tr>
+</table>
+    #springFormHiddenInput("commentSearchForm.keyword", "")
+    #springFormHiddenInput("commentSearchForm.page", "")
+</form>
+
+<br/>
+
+<div class="content-toolbar">
+    #set($url = "/comment/browse.html")
+    #set($param = "keyword=$commentSearchForm.keyword")
+#paging($pages, $commentSearchForm.page,  $url, "page", "$param")
+</div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/data-store.png")'/>
+        &nbsp;
+        <span>Ketersediaan Data</span>
+    </title>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#btn_to_list").click(function() {
+                window.location = '#springUrl("/data-store/browse/${root.id}.html")';
+            });
+            
+            var fileRow;
+        #if($dataStoreForm.storageType == 1)
+            fileRow = $("#fileRow");
+            $(fileRow).remove();
+        #end
+            $("#storageType").change(function() {
+                var v = $(this).attr("value");
+                if (v == 1) $(fileRow).remove();
+                else {
+                    $("#storageTypeRow").after(fileRow);
+                    window.console.debug($("#storageTypeRow"));
+                    fileRow.show();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+<span class='title'>
+    ${dataStore.name}
+</span>
+<div class='clear'>&nbsp;</div>
+<table class='info_detail'>
+    <tr>
+        <td>
+            <p class='info'>${dataStore.description}</p>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<span class='title-small'>Edit</span>
+#springBind("dataStoreForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+
+<form action='#springUrl("/data-store/${root.id}/edit/${dataStore.id}.html")' method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td class='label'>Nama</td>
+            <td>#springFormInput("dataStoreForm.name", "style='width: 350px;'")</td>
+        </tr>
+        <tr>
+            <td class='label'>Keterangan</td>
+            <td>#springFormTextarea("dataStoreForm.description", "style='width: 400px; height: 40px;'")</td>
+        </tr>
+        <tr id='storageTypeRow'>
+            <td class='label'>Jenis</td>
+            <td>
+                #springFormSingleSelect("dataStoreForm.storageType", $storageTypes, "style='width: 300px;'")
+            </td>
+        </tr>
+        <tr id='fileRow'>
+            <td class='label'>File</td>
+            <td><input type='file' name='file'/></td>
+        </tr>
+        <tr id='submit'>
+            <td></td>
+            <td>
+                <input type='submit' name='submit' value='Simpan'/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/file-sharing.png")'/>
+        &nbsp;
+        <span>Sharing File</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        var action_click = function() {
+            var value = $(this).attr("value");
+            $(this).clickNav({
+                url : value
+            });
+        };
+
+        $(document).ready(function() {
+            $("#btnNewDocument").clickNav({
+                url :'#springUrl("/file-sharing/entry.html")'
+            });
+
+            $("div.document_action > button.manage").each(action_click);
+            $("div.document_action > button.download").each(action_click);
+            $("div.document_action > button.edit").each(action_click);
+
+            $("div.document_action > button.delete").clickConfirm({
+                position: 'right',
+                questionText: "<span style='color: red;'>Semua revisi dokumen juga akan ikut terhapus.</span><br/>Yakin untuk menghapus dokumen ini?",
+                onProceed: function(trigger) {
+                    var url = $(trigger).attr("value");
+                    location.href = url;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    <button id='btnNewDocument'>Baru</button>
+    #springBind("searchForm")
+    <form action='#springUrl("/file-sharing/list.html")' method="post" style="text-align: right; display: inline;">
+        <span>Kata kunci:</span> #springFormInput("searchForm.keyword", "class='register'")
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+    &nbsp; | &nbsp;
+    #set($url = "/file-sharing/list.html")
+    #paging($pageList, $currentPage,  $url, "page", "keyword=$!{searchForm.keyword}")
+</div>
+
+
+<table class="datalist" style="width: 98%;">
+    <tr>
+        <td style='width: 610px'>
+            <span class='result'>Tersedia $!{documentCount} data.</span>
+        </td>
+    </tr>
+</table>
+<table class="datalist" style="width: 98%;">
+    #foreach($document in $documentList)
+        #set($row_num = $velocityCount + $firstRow)
+        <tr>
+            <td style='width: 10px;'>$row_num.</td>
+            <td style='width: 580px;'>
+                <span class='title'>$document.name</span>
+
+                <p class='description'>
+                    $document.description
+                </p>
+                <table class='info_detail' id='detail_${document.id}' style='display: none;'>
+                    <tr>
+                        <td><p class='info'>$!{document.filename}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p class='info'>$dateTool.format("d MMM yyyy HH:m z Z", $document.submitDate)</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style='width: 20px;'>
+                                        <img src='#springUrl("/person/avatar/${document.owner.id}.html?width=40")'/>
+                                    </td>
+                                    <td>
+                                        $!{document.owner.name}<br/>
+                                        <span class='info'>$!{document.owner.email}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class='document_action'>
+                    <img src='#springUrl("/images/16/triangle_down.png")'
+                         onclick='$("#detail_${document.id}").slideToggle("slow");'/>
+                    |
+                    <button value='#springUrl("/file-sharing/manage/${document.id}.html")' class='action manage'>kelola
+                    </button>
+                    <button value='#springUrl("/file-sharing/download/${document.id}.html")' class='action download'>
+                        download
+                    </button>
+                    #if ($current_principal.id == $document.owner.id)
+                        <button value='#springUrl("/file-sharing/edit/${document.id}.html")' class='action edit'>
+                            edit
+                        </button>
+                        <button value='#springUrl("/file-sharing/remove/${document.id}.html?page=$currentPage")'
+                                class='action delete'>
+                            hapus
+                        </button>
+                    #end
+                </div>
+            </td>
+        </tr>
+    #end
+</table>
+
+<br/>
+
+<div class="content-toolbar">
+    #springBind("searchForm")
+    <form action='#springUrl("/file-sharing/list.html")' method="post" style="text-align: right; display: inline;">
+        Kata kunci: #springFormInput("searchForm.keyword", "class='register'")
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+    &nbsp; | &nbsp;
+    #paging($pageList, $currentPage,  $url, "page", "keyword=$!{searchForm.keyword}")
+</div>
+</body>
+</html>

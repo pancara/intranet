@@ -1,0 +1,13 @@
+<table class='album' cellspacing="4">
+    <tr>
+        <td>
+            <div>
+                <img src='#springUrl("/gallery/picture/${picture.id}.html?width=80")'/>
+            </div>
+        </td>
+        <td>
+            <span class='title-small'>$picture.title</span>
+            <p class='description'>$picture.description</p>
+        </td>
+    </tr>
+</table>

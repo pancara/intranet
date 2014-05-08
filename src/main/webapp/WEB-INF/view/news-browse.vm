@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/news.png")'/>
+        &nbsp;
+        <span>Penelusuran Berita</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("button.new").clickNav({
+                url :'#springUrl("/news/entry.html")'
+            });
+
+            $("button.edit").click(function() {
+                var id = $(this).attr("value");
+                var url = '#springUrl("/news/edit/")' + id + ".html";
+                window.location.href = url;
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="content-toolbar">
+    #springBind("newsSearchForm")
+    <form action='#springUrl("/news/browse.html")' method="post" style="text-align: right; display: inline;">
+        <span>Kata kunci:</span> #springFormInput("newsSearchForm.keyword", "class='register'")
+        <input type="hidden" name="page" value="1"/>
+        <input type='submit' name='submit' value='Cari'/>
+    </form>
+</div>
+
+
+<div style="margin:4px 0px 4px 0px;">
+    <span class='result'>Tersedia $!{newsCount} data.</span>
+</div>
+
+<div style="margin: 4px 4px 4px 8px;">
+    #set($startIndex = $startRow + 1)
+    <ol class="article-list" style="list-style:decimal;" start="$startIndex">
+        #foreach($news in $newses)
+            <li>
+
+                <img src='#springUrl("/news/picture/${news.id}.html?width=80")'
+                     style="float: left; margin-right: 6px;"/>
+
+                <a href='#springUrl("/news/read/${news.id}.html")' class='title'>
+                    $news.title
+                </a>
+                <br/>
+
+                <p class="description">
+                    $textTool.substring($news.content, 120)
+                    <span>
+                        [
+                        $dateTool.format("d", $news.postDate)
+                        $dateTool.format("MMM", $news.postDate)
+                        $dateTool.format("yyyy", $news.postDate)
+                        ]
+                    </span>
+                </p>
+                <div class='clear'>&nbsp;</div>
+            </li>
+        #end
+    </ol>
+</div>
+
+    #springFormHiddenInput("newsSearchForm.keyword", "")
+    #springFormHiddenInput("newsSearchForm.page", "")
+
+<br/>
+
+<div class="content-toolbar">
+    #set($url = "/news/browse.html")
+    #set($param = "keyword=$newsSearchForm.keyword")
+    #paging($pages, $newsSearchForm.page,  $url, "page", "$param")
+</div>
+
+</body>
+</html>

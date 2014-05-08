@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/file-sharing.png")'/>
+        &nbsp;
+        <span>Sharing File</span>
+    </title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btn_to_manage").click(function() {
+                window.location = '#springUrl("/file-sharing/manage/${document.id}.html")';
+            });
+        });
+    </script>
+    <style>
+        a.version {
+            font-weight: bold;
+            width: 40px;
+            font-size: 14px;
+            color: #990000;
+        }
+
+        a.version:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class='content-toolbar'>
+    <button id='btn_to_manage'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+<table style="width: 95%;">
+    <tr>
+        <td>
+            <span class='title'>$document.name</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class='description'>$document.description</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            #springBind("revisionForm")
+            <ul class='error'>
+                #foreach($error in $status.errorMessages)
+                    <li>$error</li>
+                #end
+            </ul>
+            <form action='#springUrl("/file-sharing/revision/${document.id}.html")' method='post'
+                  enctype="multipart/form-data">
+                <table style="width: 95%;">
+                    <tr>
+                        <td style="width: 90px;">File :</td>
+                        <td><input type='file' name='document' style='width: 200px;'/></td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan :</td>
+                        <td>#springFormTextarea("revisionForm.description", "style='width: 300px; height: 60px;'")</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type='submit' value='submit'/></td>
+                    </tr>
+                </table>
+            </form>
+
+            <br/>
+            <!-- revision history -->
+            <table style="width: 400px; margin-top: 6px;" id='version_list' class="datalist">
+                <tr>
+                    <td colspan='3'><span class='title-small'>revisi</span></td>
+                </tr>
+                #foreach($version in $versions)
+                    <tr>
+                        <td style="width: 40px;;">
+                            <a href='#springUrl("/file-sharing/download/version/${version.id}.html")' class='version'>
+                                ${version.versionNumber}.0
+                            </a>
+                        </td>
+                        <td>
+                            <span class='info'>
+                                $dateTimeTool.format($version.commitDate)
+                            </span>
+
+                            <p class='info' style="color: #111;">
+                                $!{version.description}
+                            </p>
+                        </td>
+                        <td>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style='width: 20px;'>
+                                        <img src='#springUrl("/person/avatar/${version.committer.id}.html?width=40")'/>
+                                    </td>
+                                    <td>
+                                        $!{version.committer.name}<br/>
+                                        <span class='info'>$!{version.committer.email}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                #end
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

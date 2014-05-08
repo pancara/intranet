@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:decorator="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Toolbar
+    </title>
+</head>
+<body>
+<div id="banner">
+    <div style="margin: 0px  0px 0px 0px;">
+        <div id="banner-top">
+            <img src='#springUrl("/images/banner-button.png")' id='btn_toggle_banner'/>
+            <div style='width: 535px; display: inline-block; text-align: left;'>
+                <img src='#springUrl("/images/misc/home-white.png")' style="display: inline; position: relative;"/>
+                &nbsp;&nbsp;
+                <a href='#springUrl("/home.html")'>Home</a> |
+                <a href='#springUrl("/contact.html")'>Kontak</a> |
+                <a href='#springUrl("/comment.html")'>Buku Tamu</a> |
+            </div>
+
+            <div style='width: 400px; display: inline-block; text-align: right;'>
+                #if($current_principal)
+                    <img src='#springUrl("/images/16/user.png")'/>
+                    ${current_principal.name}
+                #else
+                    <a href='#springUrl("/login.html")'>
+                        Login
+                    </a>
+                #end
+            </div>
+        </div>
+        <div id='banner-content'>
+            <div id='logo'
+                 style="display: inline; position: absolute; width: 40px; height: 40px; margin: 50px 0px 0px 0px; left: 16px;">
+                <img src='#springUrl("/images/bbwsso/logo.png")'/>
+            </div>
+            <div style="position: absolute; display: block; text-align: left; margin: 60px 0px 0px 55px;">
+                <span style="color: #FFCC33; font-family: 'Trebuchet MS'; font-size: 16px; font-weight:bold; letter-spacing: 1px;">INTRANET</span>
+                <span style="color: #FFF;font-family: 'Trebuchet MS'; font-size: 16px; font-weight: bold; letter-spacing: 1pt;">BBWS SERAYU OPAK</span>
+                <br/>
+                <span style='font-family: "Trebuchet MS"; font-size: 12px; font-weight: bold; letter-spacing: 1px;'>
+                    KEMENTERIAN PEKERJAAN UMUM
+                </span>
+            </div>
+
+            <div style='width: 300px; height: 90px; display: inline; float: left; margin: -2px 0px 0px 0px;'>
+                <img src='#springUrl("/images/bbwsso/banner-1.png")' style="border: none;"/>
+            </div>
+            #foreach($i in [1..8])
+##                <div class="small-pic">&nbsp;</div>
+            #end
+        </div>
+    </div>
+</div>
+</body>
+</html>

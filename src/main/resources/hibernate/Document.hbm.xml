@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Document" table="tb_document">
+        <id name="id" column="UID" type="java.lang.Long" unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="name" type="java.lang.String" column="NAME"/>
+
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" sql-type="TEXT"/>
+        </property>
+
+        <property name="filename" type="java.lang.String" column="FILENAME"/>
+
+        <property name="submitDate" type="java.util.Date" column="SUBMIT_DATE"/>
+
+        <many-to-one name="owner" class="com.integrasolusi.pusda.intranet.persistence.Person" column="OWNER"
+                     lazy="false"/>
+
+        <set name="shares" order-by="UID" cascade="save-update,merge,delete-orphan" lazy="true">
+            <key column="DOCUMENT"/>
+            <one-to-many class="com.integrasolusi.pusda.intranet.persistence.Share"/>
+        </set>
+
+        <property name="size" type="java.lang.Long" column="FILE_SIZE" not-null="false"/>
+    </class>
+</hibernate-mapping>

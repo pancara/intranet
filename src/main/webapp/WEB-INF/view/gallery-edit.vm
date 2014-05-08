@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/photo.png")'/>
+        &nbsp;
+        <span>Galleri</span>
+    </title>
+</head>
+<body>
+    #springBind("galleryForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/gallery/edit/${galleryForm.id}.html")' method="post" enctype="multipart/form-data">
+    #parse ("includes/gallery-form.vm")
+</form>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="daoTemplate" abstract="true">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+
+    <bean id="staffDao" class="com.integrasolusi.pusda.intranet.dao.StaffDaoImpl" parent="daoTemplate"/>
+
+    <bean id="ownerDao" class="com.integrasolusi.pusda.intranet.dao.PersonDaoImpl" parent="daoTemplate"/>
+
+    <bean id="userDao" class="com.integrasolusi.pusda.intranet.dao.AccountDaoImpl" parent="daoTemplate"/>
+
+    <bean id="personDao" class="com.integrasolusi.pusda.intranet.dao.PersonDaoImpl" parent="daoTemplate"/>
+
+    <bean id="galleryDao" class="com.integrasolusi.pusda.intranet.dao.GalleryDaoImpl" parent="daoTemplate"/>
+
+    <bean id="galleryPictureDao" class="com.integrasolusi.pusda.intranet.dao.GalleryPictureDaoImpl"
+          parent="daoTemplate"/>
+
+    <bean id="documentDao" class="com.integrasolusi.pusda.intranet.dao.DocumentDaoImpl" parent="daoTemplate"/>
+
+    <bean id="documentVersionDao" class="com.integrasolusi.pusda.intranet.dao.DocumentVersionDaoImpl"
+          parent="daoTemplate"/>
+
+    <bean id="shareDao" class="com.integrasolusi.pusda.intranet.dao.ShareDaoImpl" parent="daoTemplate"/>
+
+    <bean id="messageDao" class="com.integrasolusi.pusda.intranet.dao.MessageDaoImpl" parent="daoTemplate"/>
+
+    <bean id="messageLogDao" class="com.integrasolusi.pusda.intranet.dao.MessageLogDaoImpl" parent="daoTemplate"/>
+
+    <bean id="commentDao" class="com.integrasolusi.pusda.intranet.dao.CommentDaoImpl" parent="daoTemplate"/>
+
+    <bean id="dataStoreDao" class="com.integrasolusi.pusda.intranet.dao.DataStoreDaoImpl" parent="daoTemplate"/>
+
+    <bean id="siteDao" class="com.integrasolusi.pusda.intranet.dao.SiteDaoImpl" parent="daoTemplate"/>
+
+    <bean id="publicationDao" class="com.integrasolusi.pusda.intranet.dao.PublicationDaoImpl" parent="daoTemplate"/>
+
+    <bean id="newsDao" class="com.integrasolusi.pusda.intranet.dao.NewsDaoImpl" parent="daoTemplate"/>
+
+    <bean id="slideDao" class="com.integrasolusi.pusda.intranet.dao.SlideDaoImpl" parent="daoTemplate"/>
+
+    <!-- repository Dao -->
+
+    <bean id="jcrTemplate" class="com.integrasolusi.jcr.JcrTemplate">
+        <property name="sessionFactory" ref="jcrSessionFactory"/>
+    </bean>
+
+    <bean id="contentRepositoryDao" class="com.integrasolusi.pusda.intranet.repository.jackrabbit.ContentRepositoryDaoImpl">
+        <property name="jcrTemplate" ref="jcrTemplate"/>
+        <property name="streamBufferUtils" ref="streamBufferUtils"/>
+    </bean>
+
+</beans>
+

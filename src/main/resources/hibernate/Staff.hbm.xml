@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.integrasolusi.pusda.intranet.persistence.Staff" table="tb_staff">
+        <id name="id" column="UID" type="java.lang.Long"
+            unsaved-value="null">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" access="field" column="OBJ_VERSION"/>
+
+        <property name="name" type="java.lang.String" column="NAME"/>
+
+        <property name="nip" type="java.lang.String" column="NIP"/>
+
+        <property name="golongan" type="java.lang.String" column="GOLONGAN"/>
+
+        <property name="jabatan" type="java.lang.String" column="JABATAN"/>
+
+
+    </class>
+</hibernate-mapping>

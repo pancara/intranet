@@ -1,0 +1,27 @@
+#springFormHiddenInput("galleryForm.id", "style='width: 300px;'")
+<table>
+    <tr>
+        <td rowspan='4' style='width: 110px;'>
+            <a href='#springUrl("/gallery/title/$!{galleryForm.id}.html")' class='pirobox'
+               title="${galleryForm.title} <br/>${galleryForm.description}"/>
+            <img src='#springUrl("/gallery/title/$!{galleryForm.id}.html?width=80")' class='foto'/>
+            </a>
+        </td>
+        <td>Judul</td>
+        <td>#springFormInput("galleryForm.title", "style='width: 450px;'")</td>
+    </tr>
+    <tr>
+        <td>Keterangan</td>
+        <td>#springFormTextarea("galleryForm.description", "style='width:500px; height: 140px;'")</td>
+    </tr>
+    <tr>
+        <td>Gambar</td>
+        <td><input type="file" name="picture"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type='submit' name='submit' value='Simpan'/>
+        </td>
+    </tr>
+</table>

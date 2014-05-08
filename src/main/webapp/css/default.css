@@ -1,0 +1,117 @@
+@CHARSET "ISO-8859-1";
+
+* {
+    font-family: "Trebuchet MS";
+}
+
+body {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    font-family: "Trebuchet MS", Verdana;
+    font-size: 9pt;
+    background: #AAA;
+    text-align: left;
+}
+
+#container {
+    width: 997px;
+    margin: 140px auto 35px auto; /*margin: 38px auto 35px auto;*/
+    padding: 0px 0px 0px 0px;
+    border: none;
+}
+
+#container > div.top {
+    margin: 0px 0px 0px 0px;
+    background: url(../images/content-top-bg.png);
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+#container > div.bottom {
+    margin: 0px 0px 0px 0px;
+    background: url(../images/content-bottom-bg.png);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+#container > div.middle {
+    margin: 0px 0px 0px 0px;
+    border: none;
+    background: url(../images/content-bg.png);
+    background-position: center center;
+    background-repeat: repeat-y;
+
+}
+
+h1.page-title {
+    margin: 0px 8px 0px 55px;
+    padding: 5px 6px 5px 8px;
+    height: 37px;
+    text-align: left;
+    width: 930px;
+    background-image: url(../images/h1-bg.png);
+    background-repeat: no-repeat;
+    background-position: left center; /*border: 1px solid Red;*/
+    z-index: 100;
+}
+
+h1.page-title span {
+    font-family: "Georgia", "Trebuchet MS", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #EEE;
+    letter-spacing: 1px; /*font-variant: small-caps;*/
+    display: inline-block;
+    margin: 5px 0px 0px 0px;
+}
+
+h1.page-title span.aq {
+    font-size: 10px;
+    color: #FFF;
+}
+
+h1.page-title a {
+    font-family: "Georgia", "Trebuchet MS", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #FFF;
+    letter-spacing: 0; /*font-variant: small-caps;*/
+    position: relative;
+    display: inline-block;
+    margin: 10px 0px 0px 0px;
+}
+
+h1.page-title img {
+    margin: 8px 4px 0px 4px;
+    display: inline-block;
+    float: left;
+}
+
+#content {
+    width: 762px;
+    margin: 0px 4px 4px 60px;
+    padding: 4px 8px 16px 6px;
+    position: relative;
+    float: left;
+    border: 3px solid #DDD;
+    border-radius: 8px;
+    text-align: justify;
+    background: #FFF;
+}
+
+div.clear {
+    clear: both;
+    height: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: #000;
+}
+
+td {
+    vertical-align: top;
+}

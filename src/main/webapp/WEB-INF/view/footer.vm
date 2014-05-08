@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:decorator="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Toolbar
+    </title>
+</head>
+<body>
+<div id="footer">
+    <div>
+        <img src='#springUrl("/images/misc/home-white.png")' style="display: inline; position: relative;"/> <a
+            href='#springUrl("/home.html")'>Home</a> |
+        <a href='#springUrl("/comment.html")'>Buku Tamu</a> |
+        <a href='#springUrl("/contact.html")'>Kontak</a>
+    </div>
+    <span style="color: #FF9933;">WEB INTRANET</span> BALAI BESAR WILAYAH SUNGAI SERAYU-OPAK<br/>
+    <span><a href='mailto:pancara.k.wijonarko@gmail.com'>Dev &copy;2011</a></span>
+</div>
+</body>
+</html>

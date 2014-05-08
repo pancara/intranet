@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/data-store.png")'/>
+        &nbsp;
+        <span>Profil</span>
+    </title>
+</head>
+<body>
+    #springBind("profileForm")
+
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+<form action='#springUrl("/profile.html")' method="post" enctype="multipart/form-data">
+    <div id='profile_panel'>
+        <ul>
+            <li><a href='#person_panel'><span>Bioadata</span></a></li>
+            <li><a href='#account_panel'><span>Account</span></a></li>
+        </ul>
+
+        <div id='person_panel'>
+            #set($must_fill = "<span class='info'>*</span>")
+            <table style="width: 90%;">
+                <tr>
+                    <td class='label' style="width: 130px;">
+                        Nama Lengkap $must_fill
+                    </td>
+                    <td>
+                        #springFormInput("profileForm.name", "style='width:350px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Alamat $must_fill
+                    </td>
+                    <td>
+                        #springFormTextarea("profileForm.address", "style='width:360px; height:80px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Email $must_fill
+                    </td>
+                    <td>
+                        #springFormInput("profileForm.email", "style='width:300px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Instansi
+                        $must_fill
+                    </td>
+                    <td>
+                        #springFormInput("profileForm.organization", "style='width:350px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        No Telepon
+                    </td>
+                    <td>
+                        #springFormInput("profileForm.phone", "style='width:250px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Foto
+                    </td>
+                    <td>
+                        <input type='file' name='foto' style='width:250px;'/>
+                    </td>
+                </tr>
+            </table>
+            <div style='position: absolute; display: inline; top: 40px; right: 10px; border: 1px solid #EEE; background: #FFF;'>
+                <img src='#springUrl("/person/avatar/${current_principal.id}.html?width=120")'
+                     style='border: 1px solid #F1F1F1; margin: 4px 4px 4px 4px;'/>
+            </div>
+        </div>
+
+        <div id="account_panel">
+            <table>
+                <tr>
+                    <td class='label' style="width: 130px;">
+                        User ID
+                        $must_fill
+                    </td>
+                    <td>
+                        #springFormInput("profileForm.userID", "style='width:250px;' readonly='readonly'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Password Lama
+                        $must_fill
+                    </td>
+                    <td>
+                        #springFormPasswordInput("profileForm.oldPassword", "style='width:200px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Password Baru
+                        $must_fill
+                    </td>
+                    <td>
+                        #springFormPasswordInput("profileForm.newPassword", "style='width:200px;'")
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Ketikan password lagi
+                    </td>
+                    <td>
+                        #springFormPasswordInput("profileForm.confirmation", "style='width:200px;'")
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div style="margin-left: 140px;">
+        <input type='hidden' name="selectedTab" id="selectedTab" value="${selectedTab}"/>
+        <input type='submit' name='submit' value='Simpan'/>
+    </div>
+</form>
+
+<script type="text/javascript">
+        #if(! $selectedTab)
+            #set($selectedTab = 1)
+        #end
+
+    $(document).ready(function() {
+        $('#profile_panel').tabs($selectedTab, {
+            fxSlide: true,
+            fxFade: true,
+            fxSpeed: 'normal',
+            onShow: function(el_clicked, el_content, el_hide) {
+                var selectedTabId = $(el_content).attr("id");
+                if (selectedTabId == "person_panel") {
+                    $("#selectedTab").attr("value", 1);
+                } else {
+                    $("#selectedTab").attr("value", 2);
+                }
+            },
+        });
+    });
+</script>
+</body>
+</html>

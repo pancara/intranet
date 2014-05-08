@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:decorator="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+       Buku Tamu
+    </title>
+</head>
+<body>
+<span class='description'></span><br/>
+ <span style="color: #336699; font-size: 14px;">
+       Silakan kirimkan pertanyaan, kritik atau saran Anda.
+</span>
+<br/>
+    #springBind("commentForm")
+<ul class='error'>
+    #foreach($error in $status.errorMessages)
+        <li>$error</li>
+    #end
+</ul>
+
+<form action='#springUrl("/comment.html")' method="post">
+    #parse ("includes/comment-form.vm")
+</form>
+
+<br/>
+
+<div>
+    #set($url = "/comment.html")
+    #paging($pageList, $page,  $url, "page", "")
+</div>
+<table class='datalist' style="width: 95%;">
+    #foreach($comment in $commentList)
+        <tr>
+            #set($row = $velocityCount + $start)
+            <td style='color: #336699;'>$row.</td>
+            <td class='label'>
+                <span style='color: #336699;'>
+                    <img src='#springUrl("/images/16/user_comment.png")'/>
+                    $comment.name
+                </span>
+                &nbsp; | &nbsp;
+                <span style='color: #336699;'>
+                    <img src='#springUrl("/images/16/email.png")'/>
+                    $emailTool.encryptMail($comment.email)
+                </span>
+                &nbsp; | &nbsp;
+                <span class='info'>
+                    <img src='#springUrl("/images/16/calendar.png")'/>
+                    $dateTimeTool.format($comment.postDate)
+                </span>
+                &nbsp;
+
+                <p>
+                    $comment.message
+                </p>
+
+            </td>
+        </tr>
+    #end
+</table>
+
+<div>
+    #set($url = "/comment.html?")
+    #paging($pageList, $page,  $url, "page", "")
+</div>
+</body>
+</html>

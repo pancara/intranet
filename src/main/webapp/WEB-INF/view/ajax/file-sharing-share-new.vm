@@ -1,0 +1,23 @@
+#foreach($share in $new_shares)
+    #set($row_num = $velocityCount + $count_old_share)
+    <tr>
+        <td style='width: 10px;'>$row_num.</td>
+        <td style="width: 1px">
+            <input type='checkbox' name='shares' value="$share.id"/>
+        </td>
+         <td style='width: 20px;'>
+             <img src='#springUrl("/person/avatar/${share.person.id}.html?width=30")'/>
+         </td>
+        <td>
+            $share.person.name<br />
+            <span class='info'>$!{share.person.email}</span>
+        </td>
+        <td style="width: 10px">
+            #if($share.canModify == true)
+                <img src='#springUrl("/images/22x22/actions/edit-find-replace.png")'/>
+            #else
+                <img src='#springUrl("/images/22x22/emblems/emblem-readonly.png")'/>
+            #end
+        </td
+    </tr>
+#end

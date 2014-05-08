@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:decorator="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Menu
+    </title>
+</head>
+<body>
+<ul>
+    <li>
+        <a href='#springUrl("/staff.html")' title="lihat data kepegawaian">
+            <img src='#springUrl("/images/sidebar/staff.png")'/>
+            <span>kepegawaian</span>
+        </a>
+    </li>
+
+     <li>
+        <a href='#springUrl("/data-store.html")' title="ketersediaan data">
+            <img src='#springUrl("/images/sidebar/ketersediaan-data.png")'/>
+            <span>ketersediaan<br/>data</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href='#springUrl("/publication/browse.html")' title="penelusuran pengumuman">
+            <img src='#springUrl("/images/sidebar/publication.png")'/>
+            <span>pengumuman</span>
+        </a>
+    </li>
+
+    <li>
+        <a href='#springUrl("/news/browse.html")' title="penelusuran berita">
+            <img src='#springUrl("/images/sidebar/news.png")'/>
+            <span>berita</span>
+        </a>
+    </li>
+
+
+    <li>
+    <a href='#springUrl("/file-sharing/list.html")' title="Sharing file">
+        <img src='#springUrl("/images/sidebar/file-sharing.png")'/>
+        <span>sharing file</span>
+    </a>
+    </li>
+
+    <li>
+        <a href='#springUrl("/message/list.html")' title="pesan">
+            <img src='#springUrl("/images/sidebar/message.png")'/>
+            <span>pesan</span>
+        </a>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        Registrasi
+    </title>
+</head>
+<body>
+Konfirmasi registrasi
+    #springBind("confirmationForm")
+    <ul class='error'>
+        #foreach($error in $status.errorMessages)
+            <li>$error</li>
+        #end
+    </ul>
+
+<form action='#springUrl("/registration/confirm.html")' method="post">
+    #springFormHiddenInput("confirmationForm.id", "style='width:150px;'")
+    #springFormHiddenInput("confirmationForm.token", "style='width:150px;'")
+    <table>
+        <tr>
+            <td class='label'>Captcha</td>
+            <td>
+                <img src='#springUrl("/registration/confirm/captcha.html")')
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                #springFormInput("confirmationForm.captcha", "style='width:150px; display: block;'")
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type='submit' name='submit' value='Simpan'/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

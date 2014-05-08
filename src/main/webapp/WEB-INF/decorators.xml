@@ -1,0 +1,28 @@
+<decorators defaultdir="/WEB-INF/decorators">
+
+    <decorator name="default" page="default.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+
+    <decorator name="no-panel" page="no-panel.jsp">
+        <pattern>/login.html</pattern>
+        <pattern>/contact.html</pattern>
+        <pattern>/comment.html</pattern>
+        <pattern>/logout.html</pattern>
+        <pattern>/recover-password.html</pattern>
+        <pattern>/recover-password/*.html</pattern>
+        <pattern>/registration/*.html</pattern>
+    </decorator>
+
+    <decorator name="ajax" page="ajax.jsp">
+        <pattern>/ajax/*</pattern>
+    </decorator>
+
+    <decorator name="json" page="json.jsp">
+        <pattern>/json/*</pattern>
+    </decorator>
+
+    <decorator name="bar" page="bar.jsp"/>
+
+    <decorator name="box" page="box.jsp"/>
+</decorators>

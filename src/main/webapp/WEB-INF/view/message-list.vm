@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/22x22/apps/internet-group-chat.png")'/> &nbsp;
+        <span>Pesan</span>
+    </title>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btnCheckAll").click(function() {
+                var v = $(this).attr("checked");
+                $("td.selection input").attr("checked", (v == null ? false : v));
+            });
+
+            $("#btnSendMessage").click(function() {
+                window.location = '#springUrl("/message/new.html")';
+            });
+
+            $("#btnRemoveMessages").clickConfirm({
+                onProceed : function() {
+                    $("#form_list_message").submit();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class='content-toolbar'>
+    <input type='checkbox' id='btnCheckAll'/>
+    |
+    <span>${messageCount} pesan, ${unreadMessageCount} belum dibaca.</span>
+    |
+    <button id='btnSendMessage'>Kirim Pesan</button>
+    &nbsp;|&nbsp;
+    <form action='#springUrl("/message/list.html")' method="post" style="display: inline;">
+        <span>Cari</span> &nbsp;<input type='text' name='keyword' value='$!{keyword}'/>
+        <input type='submit' value='Cari'/>
+    </form>
+</div>
+<form action='#springUrl("/message/remove.html")' method='post' id='form_list_message'>
+    <table class='datalist' style="width: 98%;">
+        #foreach($msg in $messages)
+            <tr>
+                <td class='selection' style="width: 10px;">
+                    <input type='checkbox' name='messageID' value="${msg.id}"/>
+                </td>
+                <td style="width: 10px;">
+                    #set($row_num = $velocityCount + $start)
+                    ${row_num}.
+                </td>
+
+                <td style="width: 30px;">
+                    <img src='#springUrl("/person/avatar/${msg.sender.id}.html")?width=30'/>
+                </td>
+                <td style="width: 120px;">
+                    $!{msg.sender.name}<br/>
+                <span class='info'>
+                    $dateTool.format("d MMM yyyy", $msg.postDate) 
+                    $dateTool.format("hh.mm z", $msg.postDate)
+                </span>
+                </td>
+                <td style="width: 10px;">
+                    #if($msg.type != 1)
+                        <img src='#springUrl("/images/22x22/status/dialog-information.png")' title="Notifikasi"/>
+                    #end
+                </td>
+                <td>
+                    <a href='#springUrl("/message/read/${msg.id}.html")'>
+                        <p class='description'>
+                            #if($msg.hasRead)
+                                $textTool.substring($textTool.removeHtmlTag($msg.content), 170)
+                            #else
+                                <b>$textTool.substring($textTool.removeHtmlTag($msg.content), 170)</b>
+                            #end
+                            ...
+                        </p>
+                    </a>
+                </td>
+            </tr>
+        #end
+    </table>
+
+    <br/>
+
+    <div class='content-toolbar'>
+        <input type='submit' id='btnRemoveMessages' value="hapus"/>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        #set($url = "/message/list.html")
+        #paging($pages, $page, $url, "page", "keyword=$!{keyword}")
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/data-store.png")'/>
+        &nbsp;
+        <span>Ketersediaan Data</span>
+    </title>
+    <script src='#springUrl("/script/jquery.clicknav.js")' type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $("img.up").click(function() {
+                var tr = $(this).parentsUntil("table").filter("tr");
+                var prev = $(tr).prev();
+                var url = '#springUrl("/ajax/data-store/moveup/")' + $(this).attr("title") + ".html";
+                $(prev).before(tr);
+                $ .get(url);
+            });
+
+            $("img.down").click(function() {
+                var tr = $(this).parentsUntil("table").filter("tr");
+                var next = $(tr).next();
+                $(next).after(tr);
+                var url = '#springUrl("/ajax/data-store/movedown/")' + $(this).attr("title") + ".html";
+                $ .get(url);
+            });
+
+            $(".btn_to_list").click(function() {
+                window.location = '#springUrl("/data-store/browse/${root.id}.html")';
+            });
+
+
+        });
+    </script>
+    <style>
+        img.up, img.down {
+            margin: 0px 0px 0px 0px;
+            border: 1px solid #EEE;
+
+        }
+
+        img.up:hover, img.down:hover {
+            border: 1px solid #CCC;
+        }
+
+        td.up, td.down {
+            width: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class='content-toolbar'>
+    <button class='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button>
+</div>
+
+<span class='title'>
+    ${parent.name}
+</span>
+
+<div class='clear'>&nbsp;</div>
+<table class='info_detail'>
+    <tr>
+        <td>
+            <p class='info'>${parent.description}</p>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<span class='title-small'>Urutkan folder/file</span>
+
+<table class='datalist' style='width: 95%;'>
+    #foreach($child in $children)
+        <tr id="row_${child.id}">
+            <td class='up'>
+                <img src='#springUrl("/images/16/arrow_up.png")' class="up" title="${child.id}"/>
+            </td>
+            <td class='down'>
+                <img src='#springUrl("/images/16/arrow_down.png")' class="down" title="${child.id}"/>
+            </td>
+            <td class='data'>
+                $child.name
+                <p class='info'>
+                    $child.description
+                </p>
+            </td>
+        </tr>
+    #end
+</table>
+<br/>
+
+<div class='content-toolbar'>
+    <button class='btn_to_list'>
+        <img src='#springUrl("/images/16/arrow_left.png")'/>&nbsp;
+        Kembali
+    </button></div>
+</body>
+</html>

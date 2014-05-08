@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+        <img src='#springUrl("/images/sidebar/news.png")'/>
+        &nbsp;
+        <span>Berita</span>
+    </title>
+    <link href="css_pirobox/css.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="css_pirobox/demo5/style.css" class="piro_style" media="screen" title="white" rel="stylesheet"
+          type="text/css"/>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn_to_list").click(function() {
+                window.location = '#springUrl("/news/browse.html")';
+            });
+
+            $().piroBox({
+                my_speed: 400,
+                bg_alpha: 0.1,
+                slideShow : true,
+                slideSpeed : 4,
+                close_all : '.piro_close,.piro_overlay'
+
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class='content-toolbar'>
+    <button class='btn_to_list'>
+        Penelusuran
+    </button>
+
+    <div style="float: right;">
+        #if ($previous)
+            <a href='#springUrl("/news/read/${previous.id}.html")'>
+                <img src='#springUrl("/images/22x22/actions/go-previous.png")'/>
+                <span>
+                    sebelum
+                </span>
+            </a>
+            &nbsp;
+        #end
+
+        #if ($next)
+            <a href='#springUrl("/news/read/${next.id}.html")'>
+                <span>
+                    berikut
+                </span>
+                <img src='#springUrl("/images/22x22/actions/go-next.png")'/>
+            </a>
+        #end
+    </div>
+</div>
+<br/>
+
+<table style="width: 99%;">
+    <tr>
+        <td>
+            <span class='title'>$news.title</span>
+            <br/>
+
+            #set($lines = $textTool.toLines($news.content))
+            #foreach($line in $lines)
+                <p class="article">
+                    #if ($velocityCount == 1)
+                        <a href='#springUrl("/news/picture/${news.id}.html")' class="pirobox_gall">
+                            <img src='#springUrl("/news/picture/${news.id}.html?width=200")' class="article"/>
+                        </a>
+                        <span>
+                            [$dateTool.format("d MMM yyyy", $news.postDate)]
+                        </span>
+                        ,
+                    #end
+                    $textTool.toHtml($line)
+                </p>
+            #end
+
+        </td>
+    </tr>
+</table>
+
+<div class='content-toolbar'>
+    <button class='btn_to_list'>
+        Penelusuran
+    </button>
+
+    <div style="float: right;">
+        #if ($previous)
+            <a href='#springUrl("/news/read/${previous.id}.html")'>
+                <img src='#springUrl("/images/22x22/actions/go-previous.png")'/>
+                <span>
+                    sebelum
+                </span>
+            </a>
+            &nbsp;
+        #end
+
+        #if ($next)
+            <a href='#springUrl("/news/read/${next.id}.html")'>
+                <span>
+                    berikut
+                </span>
+                <img src='#springUrl("/images/22x22/actions/go-next.png")'/>
+            </a>
+        #end
+    </div>
+</div>
+</body>
+</html>

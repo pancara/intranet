@@ -1,0 +1,14 @@
+{"results" :
+    [ #foreach($person in $persons)
+        #if($velocityCount != $persons.size())
+            #set($coma = ",")
+        #else
+            #set($coma = "")
+        #end
+        {
+            "id" : "$!{person.id}",
+            "name" : "$!{person.name}"
+        }$coma
+    #end ],
+"total": ${total}
+}
